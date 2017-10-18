@@ -1,0 +1,54 @@
+Scanning from System.in
+
+********************************
+       Welcome to the Acme
+    Command Line Interpreter
+********************************
+    Valid commands are:
+     A <arg>
+     B <arg>
+     Q
+
+Enter Command Line >>
+You Entered: A test
+The command is: A
+The argument is: test
+Doing A, command argument is: test
+Enter Command Line >>
+You Entered: Atom test bomb
+The command is: ATOM
+The argument is: test
+Doing A, command argument is: test
+Enter Command Line >>
+You Entered:    
+Ignoring blank line
+Enter Command Line >>
+You Entered: b
+The command is: B
+No argument
+Doing B, command argument is: null
+Enter Command Line >>
+You Entered: Bomb test
+The command is: BOMB
+The argument is: test
+Doing B, command argument is: test
+Enter Command Line >>
+You Entered:    
+Ignoring blank line
+Enter Command Line >>
+You Entered: x Ray vision
+The command is: X
+The argument is: Ray
+Unknown Command, try again
+Enter Command Line >>
+You Entered: x
+The command is: X
+No argument
+Unknown Command, try again
+Enter Command Line >>
+You Entered: Quit
+The command is: QUIT
+No argument
+
+********* Goodbye **********
+

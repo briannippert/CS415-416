@@ -1,0 +1,36 @@
+import wheelsunh.users.*;
+import java.awt.Color;
+
+
+
+/** 
+ * Lab1.java:  Displays a red circle.
+ *
+ * @author cs415
+ * 
+ */
+public class Lab1 
+{
+    //---------------- instance variables ------------------------------
+    private Ellipse circle;
+    
+    
+    // -----------------------------------------------------------------
+    /** Constructor for the Lab1 class.
+      */
+    public Lab1( )
+    {
+        circle = new Ellipse( Color.RED );
+    } 
+    
+    // -----------------------------------------------------------------
+    /** main program creates a Frame and invokes the class constructor.
+      * 
+      * @param  args  the command line.
+      */
+    public static void main( String[] args )
+    {
+        Frame f = new Frame();
+        Lab1 app = new Lab1();
+    }
+} //End of Class Lab1

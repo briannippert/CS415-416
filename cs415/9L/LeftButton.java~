@@ -1,0 +1,53 @@
+import wheelsunh.users.*;
+import java.awt.Point;
+import java.awt.Color;
+
+
+public class LeftButton extends Ellipse
+{
+  Ellipse button1;
+  protected Snake s;
+  
+  
+  public LeftButton (int x, int y, Snake s )
+  {
+    
+    
+    super.setLocation(x,y);
+    super.setSize(20,20);
+    super.setColor(Color.BLUE);
+    
+    
+    
+  }
+  
+  public void mousePressed( java.awt.event.MouseEvent e)
+  {
+    
+    super.setColor(Color.RED);
+    
+    
+    
+  }
+  
+  public void mouseReleased( java.awt.event.MouseEvent e)
+  {
+    super.setColor(Color.BLUE);
+    
+    
+  }
+  
+  public static void main( String[] args)
+  {
+    Frame f = new Frame();
+    Snake s = new Snake(200,100);
+    new LeftButton(100,100,s);
+    
+    
+    
+  }
+  
+  
+  
+  
+}

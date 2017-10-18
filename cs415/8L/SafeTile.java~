@@ -1,0 +1,53 @@
+
+import java.awt.Color;
+import java.awt.event.*;
+import wheelsunh.users.*;
+
+/**
+ * SafeTile.java - 
+ *    A SafeTile extends the wheels Rectangle class, so it has all the 
+ *       functionality of a Rectangle.
+ *    We add to the Rectangle functionality: the ability to respond to
+ *       mouse press and mouse release events.
+ * 
+ * @author rdb
+ */
+public class SafeTile extends Tile
+{
+  //------------------------ instance variables ----------------------
+  
+ 
+  
+  //------------------------- Constructors ---------------------------
+  /**
+   * Position SafeTile at x,y; SafeTile color is white SafeTile frame is gray; 
+   *  tize is size 25x25 .
+   * @param x int
+   * @param y int
+   */
+  public SafeTile( int x, int y )
+  {
+    
+  super( x , y );
+  
+    
+  }
+  public void mouseClicked( java.awt.event.MouseEvent e)
+  {
+   
+    super.setColor(Color.BLACK);
+    
+  }
+  
+ 
+  //--------------------------- main ---------------------------------
+  /**
+   * Unit test method for SafeTile class.
+   * @param args String
+   */
+  public static void main( String args[] )
+  {
+    Frame f = new Frame();
+    SafeTile SafeTile1 = new SafeTile(100,100);
+  }
+} 

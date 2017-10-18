@@ -1,0 +1,214 @@
+//-------------------------------------------------------
+/**
+ * RunnerApp
+ * Lab 21
+ * Spring 2013
+ * mlb
+ * 
+ */
+
+
+import java.awt.Color;
+import wheelsunh.users.*;
+import java.util.*;
+import java.awt.event.*;
+
+
+
+public class RunnerApp implements   KeyListener
+{  
+    public static final int SIZE = 12;  // size of cell
+    public static final int COLS = 50;  // number of colums 
+    public static final int ROWS = 30;  // number of rows 
+    
+    public static final int X = 10;  // base location
+    public static final int Y = 10;  
+    
+    
+    
+    private Rectangle [ ] [ ] field; // the playing field
+    
+    private Stack<CellRecord> stack;
+    
+    private Runner runner;
+    
+    //--------------------------- <init> -----------------------------------
+    /*
+     * 
+     */
+    public RunnerApp(  ) 
+    {
+        
+        // Create field to be a ROWSXCOLS array of rectangles
+        
+        
+        
+        
+        // Fill the field with squares of size SIZE, green with black frames
+        // And lay them out in a grid
+       
+    
+        
+        
+        // Create a Stack of CellRecords
+       
+        
+        // create a new Runner 
+       
+        
+        // move to the cell  10 20
+        
+        
+        // create a CellRecord for this cell, set the return to cell to -1,-1
+        // and push it into the stack
+     
+        
+        // set the color of this cell to white
+        
+    }
+    
+    
+    
+    
+    
+    //--------------------------------------------------------------------
+    /*
+     *  popAndMove
+     *  
+     */
+    public void popAndMoveBack()
+    {
+        System.out.println( "Pop and back up" );
+        // if stack is empty just return
+     
+
+        
+        // pop a CellRecord off the stack
+        // get the current row and col and the "return to" row and col from the record
+        // set the color of the current cell to cyan
+        // move the runner to the "return to" cell
+        
+       
+
+
+
+    }
+    
+    
+    //--------------------------------------------------------------------
+    /*
+     *  move and push
+     *  
+     */
+    public void moveToNextAndPush(int code )
+    {
+         System.out.println( "Move forward  and Push" );
+        
+        // get the current row and column from the runner
+      
+        
+        
+        // set the new row and column to the current row and column
+      
+        
+        
+        // Adjust the new row and column acording to the key code
+      
+
+
+
+        
+        // Creat a CellRecord for the new row and col
+       
+        
+        // set the CellRecords "return to" row and column to the 
+        //current row and col
+      
+        
+        //  Push the record onto the stack
+       
+        
+        // move the runner to the new row and col
+        
+        
+        //set the color of the new cell to white
+        
+        
+        
+        
+    }
+    
+    
+    
+    //--------------------------------------------------------------------
+    /*
+     *  Handle the key pressed event. 
+     *   The key codes are  KeyEvent.VK_UP,  KeyEvent.VK_DOWN,  
+     *  KeyEvent.VK_RIGHT KeyEvent.VK_LEFT,  KeyEvent.VK_SHIFT.
+     *  
+     */
+    public void keyPressed(KeyEvent e) 
+    {
+        int code = e.getKeyCode( ); 
+        
+        System.out.println("KEY PRESSED: " + e.getKeyCode( ) );
+        
+   
+
+
+        // if the code is a shift key  then  call popAndMoveBack
+        // ( pop the Stack and move back to the previous cell)
+  
+
+
+        
+        // else if the code is an arrow key then call moveToNextAndPush( code)
+        // (move to the new cell and push a   CellRecord on the Stack)
+   
+
+
+
+    }
+    
+    
+    
+    
+    
+    //--------------------------------------------------------------------
+    /*
+     * Handle the key released event from the text field. 
+     *  NOT NEEDED TO GET ARROW VALUES
+     */
+    public void keyReleased(KeyEvent e) 
+    {
+        //System.out.println("XXKEY RELEASED: " + e.getKeyCode( ) );
+    }
+    
+    
+    //--------------------------------------------------------------------
+    /*
+     * Handle the key typed event from the text field. 
+     *  Used to get regular character input not control keys
+     *  NOT NEEDED TO GET ARROW VALUES
+     */
+    public void keyTyped(KeyEvent e) 
+    {
+        // System.out.println( "XXKEY TYPED: " + e.getKeyCode( ) );
+    }
+    
+    //--------------------------- main -----------------------------------
+    /*
+     * Run the app
+     */
+    public static void main( String arg[ ] ) 
+    {
+        Frame frame = new Frame();
+        RunnerApp app = new RunnerApp( ); 
+
+        // add app as a keyListener to frame
+        
+
+
+    
+    }
+}

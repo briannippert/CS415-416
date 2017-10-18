@@ -1,0 +1,48 @@
+
+// --------------- imports ------------------------------
+import wheelsunh.users.*;
+import java.awt.Color;
+
+
+// ----------------------   class Eyeball    ---------------------------
+/** 
+ * This class inplements a program that uses an Eyeball.
+ * 
+ * @author CS415
+ * 
+ */
+public class Lab7 
+{
+    //---------------- instance variables ------------------------------
+    
+    // -----------------------------------------------------------------
+    /** 
+     * Constructor for the Lab7 class.
+     */
+    public Lab7( )
+    {
+        Ellipse e = new Ellipse();    
+        Eyeball e1;
+
+ 
+       
+    } 
+    
+    
+     // ----------------------------------------------------------------
+    /** 
+     * 
+     * main program just invokes the class constructor.
+     * 
+     * @param args String
+     * 
+     */
+    public static void main( String[] args )
+    {
+   
+        
+        
+        
+    }
+
+} //End of Class Lab7

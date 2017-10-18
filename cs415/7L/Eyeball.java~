@@ -1,0 +1,78 @@
+
+// ---------------       imports          ------------------------------
+import wheelsunh.users.*;
+import java.awt.Color;
+
+// ----------------------   class Eyeball    ---------------------------
+/** 
+ * This class inplements a simple Eyeball.
+ * 
+ * @author CS415
+ * 
+ */
+public class Eyeball
+{
+    //---------------- instance variables ------------------------------
+    // variables are used to references the  objects
+    // used to draw the eyeball.
+    private Ellipse    iris;
+    private Ellipse    sclera;
+    private Color      irisColor;
+
+    
+    // -----------------------------------------------------------------
+    /** 
+     * Default constructor for the Eyeball class.
+     */
+    public Eyeball( )
+    {
+        
+        
+        
+        
+    } 
+    
+
+  
+    // -----------------------------------------------------------------
+    /**
+     *   Change the location of the eyeball.
+     * 
+     * @param x int
+     * @param y int
+     */
+    public void setLocation( int x, int y )
+    {
+
+        
+        
+        
+        
+    }
+    // -----------------------------------------------------------------
+    /**
+     *   Change the color of the iris of the eyeball.
+     * 
+     * @param iColor Color
+     */
+    public void setColor( Color iColor )
+    {
+
+       
+        
+        
+        
+    }
+    // -----------------------------------------------------------------
+
+    public void getMad( )
+    {
+
+        
+        
+        
+       }
+
+    
+
+} //End of Class Eyeball

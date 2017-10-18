@@ -1,0 +1,55 @@
+
+/**  GrinderApp
+  * Create a collection of coins and rotating grinders
+  * 
+  * mlb 10/20/11
+  * 
+  */
+
+
+import wheelsunh.users.*;
+import java.awt.event.*;
+import java.util.*;
+import java.awt.Point;
+import java.awt.Color;
+
+public class GrinderApp  
+{  
+   
+   
+   private Rectangle r;
+   private Ellipse e;
+   
+   
+   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   /**
+    * 
+    * 
+    */
+   public GrinderApp( ) 
+   {  
+      
+      e = new Ellipse( 55 + 40, 265 );
+      e.setSize( 15, 15 );
+      e.setFillColor( Color.yellow );
+      e.setFrameColor( Color.black );
+      
+      
+      r = new Rectangle( 55 , 250 );
+      r.setSize( 40, 40 );
+      
+   }
+   
+   
+   
+   
+   //--------------------------- main -----------------------------------
+   /*
+    * 
+    */
+   public static void main( String args[ ] )
+   {
+      Frame f = new Frame( );
+      GrinderApp  m = new GrinderApp(  ); 
+   }
+}

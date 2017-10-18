@@ -1,0 +1,142 @@
+import java.util.*;
+import java.io.*;
+
+/**
+ * LabExceptions.java. 
+ * @author cs415
+ * 
+ * 
+ */
+public class LabExceptions 
+{ 
+    /**
+     * Constructor.
+     * 
+     *@throws IOException if file won't open
+     */
+    public LabExceptions( )  throws IOException                         
+    { 
+        // create a System.in scanner
+        System.out.println( "Enter input file name> " );
+        Scanner  scanIn   = new Scanner( System.in ); 
+        String   fileName = scanIn.nextLine().trim();
+        
+        //////////////////////////////////////////////////////////////
+        // 1. Create a File object from a String 
+        // (containing the file name).
+        ///////////////////////////////////////////////////////////////
+        File inputFile = null;
+        
+        
+        
+        
+        ////////////////////////////////////////////////////////////////
+        
+        System.out.println( "\n*******************************\n" );
+        System.out.println( "Part 1: print a file to standard output" +
+                               " with line numbers\n\n" );
+        
+        lineInput( inputFile );
+        
+        System.out.println( "\n*******************************\n" );
+        System.out.println( "Part 2:print the same file one token per" +
+                               " line\n\n" ); 
+        
+        tokenInput( inputFile );
+
+
+      System.out.println( "\n*******************************\n" );
+      System.out.println( "Part 3 print the same file one char per line with ASCII values\n\n" );
+      characterInput( inputFile );
+        
+        
+    }
+    
+    /**
+     * Read lines from inputFile and print out with line numbers.
+     * 
+     * @throws IOException  if file won't open
+     * @param inFile File
+     */
+    private void lineInput( File inFile ) throws IOException
+    {       
+        Scanner scanFile;
+        // 2a. Create a Scanner object from the File parameter, inFile 
+        // 5. Add try-catch
+        
+        
+        
+        // 2b. Read lines from the Scanner, print each input line on 1 
+        // output line
+        // prefixed by its line number, starting at 1; make it readable.
+        
+        
+        
+    }
+    
+    
+    /**
+     * Read tokens from inputFile and print out as one token per line.
+     * 
+     * 
+     * @throws IOException  if file won't open
+     * @param inFile File
+     */
+    
+    private void tokenInput( File inFile ) throws IOException
+    {
+        Scanner scanFile;
+        // 3a. Create a Scanner object from the File parameter, inFile 
+        // 6. Add try-catch
+        
+        
+        
+        // 3b. Read tokens from the Scanner, print each input token 
+        //     on its own output line
+        
+        
+        
+        
+        
+        
+    }
+    
+
+   /**
+     * Read characters from inputFile and print out 
+     *  along with the unicode value.
+     * 
+     * 
+     * @throws IOException  if file won't open
+     * @param inFile File
+     */
+   private void characterInput( File inFile ) throws IOException
+   {
+      int ich;
+      BufferedReader bReader = null;
+      
+      
+      
+      
+      
+ 
+   }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /**
+     * Main.
+     * @param args String[]
+     * @throws IOException  if file won't open
+     */
+    public static void main( String[ ] args ) throws IOException
+    {
+        LabExceptions app = new LabExceptions( );
+    }
+}

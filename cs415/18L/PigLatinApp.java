@@ -1,0 +1,145 @@
+import wheelsunh.users.*;
+import java.util.*;
+import java.awt.event.*;
+import javax.swing.JOptionPane;
+
+/**--------------------------------------------------------
+  * PigLatinApp:
+  * Pig Latin Translator
+  * 
+  * Lab 18
+  * 
+  * 
+  * mlb 
+  */
+
+public class PigLatinApp 
+{
+  //  A vector of words
+  private Vector<String> sentences;
+  
+  
+  // The display text box
+  private TextBox tb;
+  
+  
+  // The prompt for the user;
+  private String prompt = "Enteray ordway";
+  
+  
+  
+  //--------------------------------------------------------
+  //  No argumant constructor
+  public PigLatinApp( )
+  {   
+    // initialize sentences to a Vetor of Strings
+    
+    sentences = new Vector<String>();
+    
+    
+    
+    //////////////////////////////////////
+    //  tb will display the current word and
+    // the list of words.
+    // Do not edit the next three lines  
+    //////////////////////////////////////
+    tb = new TextBox(100,10);
+    refreshDisplay();
+    
+    // play the game
+    play();
+  }
+  
+  
+  
+  
+  
+  
+  
+  //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  /**  Prompt the user for a sentence using an InputDialog.
+    *  Then translate the sentence to pig latin and add it to the 
+    *   sentence list.
+    *     
+    *     
+    */
+  public void play(   ) 
+  {
+    
+    
+    // This will prompt the user and return the String that was entered
+    //  It will return an empty String if the user clicks OK without entering 
+    //  a String
+    // It will return null if the user clicks cancel
+    String s = JOptionPane.showInputDialog( null,  prompt ); 
+    
+    while ( s!= null )
+    {
+      sentences.clear();
+      if(sentences != null)
+      {
+        String s2 = StringUtilities.translateSentence(s); 
+        sentences.add(s2);
+        
+      }
+      
+// Add a slection structure based on the value of the entered 
+      //  String
+      //
+      //  If an empty string is entered then clear the collection 
+      // "sentence"
+      
+      //
+      // Otherwise call the translateSentence method in StringUtilities
+      // and add the returned sentence to the "sentences" collection
+      ////////////////////////////////////////////////////////////////
+      
+      
+      
+      
+      
+      
+      
+      ///////////////////////////////////////////////////////////
+      //  this will refresh the display and read a new sentence
+      //  do not change
+      refreshDisplay( );
+      s = JOptionPane.showInputDialog( null,  prompt );      
+    }
+  }
+  
+  
+  
+  
+  
+  
+  
+  //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  /**  Refreshes display
+    *   do not edit  
+    *     
+    */
+  //--------------------------------------------------------
+  private void refreshDisplay()
+  {
+    String output =  "Translated List:\n";
+    
+    if( sentences != null)
+    for( String s: sentences )  
+      output += ("               " + s + "\n");
+    
+    tb.setText( output );
+    tb.setWidth(450);
+  }
+  
+  
+  
+  //--------------------------------------------------------
+  // Creates a Frame and a PigLatinApp 
+  //
+  public static void main( String args[] )
+  {
+    Frame f = new Frame();
+    PigLatinApp w =  new PigLatinApp( );
+  }
+}

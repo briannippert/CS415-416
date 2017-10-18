@@ -1,0 +1,31 @@
+public class Cockroach extends Ellipse
+
+ 
+
+
+{
+   int height;
+   int width = 3 * height;
+   
+   public Cockroach()
+   {
+    
+     super.setColor(Color.BLACK);
+     
+     
+     
+     
+   }
+  
+  
+  
+  public static void main( String[] args )
+  {
+   Frame f1 = new Frame();
+   Cockroach app1 = new Cockroach();
+   
+    
+    
+  }
+  
+}
