@@ -1,0 +1,18 @@
+>aseq   10 A's
+AAAAAAAAAA
+>tseq  10 T's
+TTTTTTTTTT
+>cseq  10 C's
+CCCCCCCCCC
+>gseq  10 G's
+GGGGGGGGGG
+>atseq  micro-satellite of repeating AT
+ATATATATATATATATATATATAT
+>cgseq micro-satellite repeating CG
+CGCGCGCGCGCGCGCGCGCGCGCG
+>atgseq micro-satellite repeating ATG
+ATGATGATGATGATGATGATGATGATGATGATGATG
+>xseq  X says that nucleotide is definitely wrong
+GATCXXXXXATAGCCCAAATTTGCXXX
+>nseq  N says nucleotide unknown
+GATCNNCCGATAGCCCAAATTTGCNNN

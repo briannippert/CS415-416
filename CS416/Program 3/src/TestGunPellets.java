@@ -1,0 +1,134 @@
+//+++++++++++++++++++++++++++ TestGunPellets.java +++++++++++++++++++++++++++
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.geom.Point2D;
+import java.util.*;
+import javax.swing.*;
+
+/**
+ * TestGunPellets - Test the pellet and gun behavior. After some frames are
+ * done, it updates the angle of the gun and the move parameters of the
+ * pellets.
+ *
+ * @author rdb 02/14/15
+ */
+public class TestGunPellets
+{
+    // ++++++++++++++++++++++ Unit Test variables +++++++++++++++++++++++++++++
+    static FrameTimer testTimer;
+    static int testPanelW = 500;
+    static int testPanelH = 400;
+    static JPanel testPanel;
+
+    static int pelletLifeTime = 10;
+    static int frameCountDown = pelletLifeTime;
+    static int maxFrames = 150;
+    static int dAngle = 20;
+    static AirGun airGun;
+    static Pellet pellet;
+    static double dx;
+    static double dy;
+    static int angle = 45;
+    static int i = 0;
+
+    /** Timer event handler class. */
+    private static class MoveListener implements ActionListener
+    {
+        // ---------------- actionPerformed( ActionEvent ) -------------
+        /** Called when time interval elapses. @param e ActionEvent */
+        public void actionPerformed( ActionEvent e )
+        {
+            // DELETE THESE PRINT LINES AS SOON AS IT IS NOT TRUE.
+            // System.out
+            // .println( "TestGunPellets.MoveListener.actionPerformed"
+            // + " is not complete." );
+            if ( pellet != null )
+            {
+                pellet.newFrame();
+            }
+           
+            // //////////////////////////////////////////////////////
+            // When maxFrames have elapsed, you need to call Reporter.testOver.
+            // Otherwise update the one active Pellet you have.
+            // If its life has ended,
+            // update the gun angle
+            // create a new Pellet using the new gun angle, assign it to
+            // the same instance variable.
+            // Add the new one to the panel
+            // //////////////////////////////////////////////////////////
+            frameCountDown--;
+            if ( frameCountDown == 0 )
+            {
+
+                airGun.setAngle( angle );
+                dy = airGun.getDirection().y;
+                dx = airGun.getDirection().x;
+                pellet = new Pellet( 37, 96, dx * 15, dy * 15 );
+                testPanel.add( pellet );
+                frameCountDown = 15;
+                angle = angle - 10;
+                i++;
+            }
+            testPanel.repaint();
+            if ( i == 10 )
+            {
+                Reporter.testOver( "Test Over", "Over" );
+            }
+        }
+    }
+
+    // ------------------------ main -------------------------------------
+    /**
+     * Unit test for TargetStream.
+     * 
+     * @param args
+     *            String[] Command line araguments
+     */
+    public static void main( String[] args )
+    {
+        // ////////////////////////////////////////////
+        // Boilerplate for simple Swing unit tests
+        // ////////////////////////////////////////////
+        JFrame frame = new JFrame( "TestGunPellets test" );
+        frame.setSize( testPanelW, testPanelH + 20 ); // define window size
+        frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        testPanel = new JPanel();
+        testPanel.setLayout( null );
+        frame.add( testPanel ); // add it to the frame
+        frame.setVisible( true ); // make it visible.
+
+        // /////////////////////////////////////////////
+        // Extra boilerplate for animated tests.
+        // /////////////////////////////////////////////
+        javax.swing.Timer timer = new javax.swing.Timer( 100, null );
+        MoveListener listen = new MoveListener();
+        timer.addActionListener( listen );
+
+        // ////////////////////////////////////////////////////////
+        // Show that your gun shoots pellets based on gun angle
+        // Create a single AitGun at its correct location.
+        // Initially aim the gun up and to the right.
+        // Create a single Pellet and "fire" it from the gun.
+        // After "frameCountDown" (initialized to 15) newFrame events,
+        // Lower the angle of the gun enough to make it very clear,
+        // and create a new Pellet using the new angle.
+        // Continue this way until the absolute value of the angle in
+        // degrees gets to 45. When that happens, change your dAngle
+        // to -dAngle and continue -- keep this pellet going for
+        // "frameCountDown" frames etc.
+        // When a total of maxFrames (initialized to 100) have finished,
+        // end the test by calling Report.testOver();
+        // /////////////////////////////////////////////////////////
+        airGun = new AirGun( 40, 100, 45 );
+
+        // pellet = new Pellet( 40, 100, 0, 0 );
+        testPanel.add( airGun );
+        // testPanel.add( pellet );
+        testPanel.repaint();
+        timer.setInitialDelay( 250 );
+        timer.start();
+        // DELETE THESE PRINT LINES AS SOON AS IT IS NOT TRUE.
+        // System.out.println( "TestGunPellets.main" + " is not complete." );
+
+    }
+}

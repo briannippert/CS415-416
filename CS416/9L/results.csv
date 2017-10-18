@@ -1,0 +1,14 @@
+Original implementation (add to position 0),,
+ ,Push Time,Pop Time
+100000:  ,0.954,0.896
+ , ,
+Revised implementation (add to end),,
+ ,Push Time,Pop Time
+100000:,0.011,0.013
+1000000:,0.025,0.107
+ ,,
+ ---------------------------------------------------------------,,
+,,
+ 6. Why do you think the first implementation is so much worse than the second?,,
+,,
+Because in the original implementation when you added something the vector had to move all of the other items in the vector down 1 position and it took longer for this to happen than for it just to add it to the end.,,

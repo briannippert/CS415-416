@@ -1,0 +1,158 @@
+import wheelsunh.users.*;
+
+import java.awt.Color;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Vector;
+import java.util.Scanner;
+
+import javax.swing.JOptionPane;
+
+/**
+ * class FastaApp reads dna from a text file and makes it searchable.
+ * 
+ * @author Brian Local
+ *
+ */
+public class FastaApp
+{
+    private String fileName;
+    private Scanner scan;
+    private String header;
+    private String dna;
+    private Vector<DNASequence> vectDNA;
+    private File file;
+    private TextBox t1, t2;
+    private String nextHeader;
+    private String tempText;
+    private String input;
+    private int space;
+    private String result;
+
+    String searchInput;
+
+    /**
+     * constructor for the FastaApp.
+     */
+    public FastaApp()
+    {
+        vectDNA = new Vector<DNASequence>();
+
+        fileName = Utilities.getFileName();
+        file = new File( fileName );
+        try
+        {
+            scan = new Scanner( file );
+        }
+        catch (FileNotFoundException e)
+        {
+            System.err.println( "FILE NOT FOUND!" );
+            e.printStackTrace();
+        }
+        while ( scan.hasNextLine() == true )
+        {
+            tempText = scan.nextLine();
+            if ( tempText.indexOf( ">" ) == 0 && tempText.indexOf( " " ) != 1 )
+            {
+                header = tempText;
+            }
+            else if ( tempText.indexOf( " " ) == 1 )
+            {
+                throw new DNASequenceException( "No Sequence ID" );
+
+            }
+            else
+            {
+                dna = tempText;
+            }
+
+            if ( dna != null )
+            {
+
+                DNASequence d1 = new DNASequence( header, dna );
+                vectDNA.add( d1 );
+
+            }
+        }
+        for ( int i = 0; i < vectDNA.size(); i++ )
+        {
+            int x = i;
+            System.out.println( vectDNA.get( x ) );
+        }
+        search();
+    }
+
+    /**
+     * allows the class to be searched.
+     */
+    public void search()
+    {
+
+        int x3 = vectDNA.size();
+        input = JOptionPane.showInputDialog( null, "There are " + x3
+                + " Files loaded \n Search" );
+        if ( input.indexOf( "S" ) == 0 || input.indexOf( "D" ) == 0 )
+        {
+            if ( input.indexOf( "S" ) == 0 )
+            {
+                System.out.println( "Search" );
+                for ( int i = 0; i < vectDNA.size(); i++ )
+                {
+                    space = input.indexOf( " " );
+                    input = input.toUpperCase();
+                    String DNASearch = input.substring( space + 1,
+                            input.length() );
+                    int x = i;
+                    String s4 = vectDNA.get( x ).getDNASequence();
+
+                    int x2 = s4.indexOf( DNASearch );
+                    if ( x2 != -1 )
+                    {
+                       result  = vectDNA.get( x ).getId() + " @ " + x2;
+                    }
+                }
+                JOptionPane.showMessageDialog( null, result);
+            }
+            else if ( input.indexOf( "D" ) == 0 )
+            {
+                System.out.println( "Display" );
+                for ( int i = 0; i < vectDNA.size(); i++ )
+                {
+                    space = input.indexOf( " " );
+                    String displaySearch = input.substring( space + 1,
+                            input.length() );
+                    int x = i;
+                    String s4 = vectDNA.get( x ).getId();
+                    int x2 = s4.indexOf( displaySearch );
+                    // System.out.println(s4);
+                    // System.out.println( x2 );
+                    if ( x2 != -1 )
+                    {
+                        JOptionPane.showMessageDialog( null, ">"
+                                + vectDNA.get( x ).getId() + "\n"
+                                + vectDNA.get( x ).getDNASequence(), s4, x2 );
+                    }
+                }
+
+            }
+
+            search();
+        }
+        else
+            throw new DNASequenceException( "Command Not Found" );
+    }
+
+    /**
+     * main method calls the class constructor.
+     * 
+     * @param args
+     *            args
+     */
+    public static void main( String[] args )
+    {
+        // new Frame();
+        new FastaApp();
+
+    }
+
+}

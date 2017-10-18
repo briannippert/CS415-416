@@ -1,0 +1,100 @@
+/**
+ * ThreadPerTaskApp.java - The main app that uses 1 thread for each task.
+ *         Same as SimplestThread from notes.
+ * @author rdb
+ * Last modified: 04/20/15   Changed output.
+ */
+import java.util.*;
+
+public class ThreadPerTaskApp 
+{
+    //--------------------- class variables -------------------------
+    // min and max service times for taskQ   
+    private static int minService = 100;
+    private static int maxService = 200;
+    
+    //--------------------- instance variables -------------------------
+    //---------------------- constructor --------------------------------
+    public ThreadPerTaskApp( int nTasks )
+    {
+        TaskQueue taskQ   = TaskQueue.createTasks( nTasks, 
+                                         minService, maxService, true );
+        Thread[]  threads = new Thread[ nTasks ];
+        
+        long startTime = System.currentTimeMillis();
+        
+        // create threads to control each task
+        for ( int t = 0; t < nTasks; t++ )
+        {
+          
+          Task task = taskQ.get(t);
+          Thread thread = new Thread(task,task.taskName);
+          threads[t] = thread;
+          thread.start();
+            ///////////////////////////////////////////////////////////////
+            // 1a. remove a task from taskQ, assign to a local variable
+            //  b. create a Thread and assign to entry t of threads array
+            //     1st arg: Task object just removed from the taskQ
+            //     2nd arg: Name for thread; use name of task object stored in
+            //              the Task public variable "taskName".
+            //  c. start the thread
+            /////////////////////////////////////////////////////////////
+            
+            
+            
+            
+        } 
+        
+        Logger.log( "Tasks  done, ");
+        for ( int t = 0; t < threads.length; t++ )
+        {
+          try{
+          threads[t].join();
+          }
+          catch(InterruptedException e)
+          {
+           Logger.error("ThreadPerTaskApp InterruptedException" );
+          }
+          Logger.log( taskQ.get(threads[t].getName()).serviceString());
+            ////////////////////////////////////////////////////////////
+            // 1d. invoke join() method of the t-th element in threads array
+            //     This must be inside a try-catch block for the 
+            //             InterruptedException
+            //     The catch should report an error message identifying 
+            //          the ThreadPerTaskApp.ctor method, the exception
+            //          (InterruptedException), the task.toString() method
+            //          and the message returned by the exception's getMessage
+            //          method. This message should be reported using:
+            //          Logger.error( String msg ); 
+            //  e. Get a reference to the Task object that is the thread:
+            //     The thread name is the same as the task name.
+            //     -Get the thread name using the "getName()" method of a the
+            //      thread ( threads[ t ]).
+            //     -The TaskQueue class has a get( String ) method that that
+            //      can take the threadName/taskName and return a Task object.
+            //
+            //  f. The "join" only returns after this task has finished. 
+            //     After the join, use Logger.log( String ) to print
+            //     the output from the task's serviceString() method
+            //     concatenated with a ", " and NO LINE FEED at the end.
+            ///////////////////////////////////////////////////////////
+ 
+        
+        
+        
+        
+        
+        
+        
+        }
+        Logger.log( "\n" );  // End of line for Logger.log in loop.
+        
+        float time = ( System.currentTimeMillis() - startTime ) / 1000.0f;     
+        Logger.log( "Elapsed time (secs),   " + time + "\n" );
+    }
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    public static void main( String[] args )
+    {
+        ThreadPerTaskApp m = new ThreadPerTaskApp( 10 );
+    }
+}

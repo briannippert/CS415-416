@@ -1,0 +1,204 @@
+/**
+ * OLE Q2_getParentTree
+ *
+ *  Search a binary tree for a node with a given key and return its parent
+ * 
+ */
+import java.util.*;
+
+public class Q2_getParentTree
+{
+    // ////////////////////////////////////////////////////////////////
+    // DO NOT DECLARE ANY CLASS OR INSTANCE VARIABLES.
+    // ////////////////////////////////////////////////////////////////
+    // ++++++++++++++++++++++ inner Tree class ++++++++++++++++++++++++
+    public static class Tree
+    {
+        // ------------ instance variables ----------------------
+        private Node _root = null;
+
+        public Node getParent( String key )
+        {
+            return getParent( _root, key, null );
+        }
+
+        // //////////////////////////////////////////////////////////////////
+        // DO NOT CHANGE ANYTHING ABOVE HERE
+        // //////////////////////////////////////////////////////////////////
+
+        // ----------------- getParent( Node, String, Node ) ------------------
+        /**
+         * Search for the node with the id value matching "key" in the subtree
+         * rooted at "root" and return its parent. The parent of "root" is
+         * passed in as "parent".
+         */
+        private Node getParent( Node node, String key, Node parent )
+        {
+            // ///////////////////////////////////////////////////////////////
+            //
+            // ADD YOUR CODE HERE
+            //
+            // Note: the structure of this method means that it does not
+            // distinguish between the following 2 cases:
+            // 1. The desired node is the root
+            // 2. The desired node is not in the tree
+            // Both return null. This is OK for your purposes.
+            // ///////////////////////////////////////////////////////////////
+            if ( parent == null )
+                System.out.println( "NULL PARENT" );
+            if ( node == _root || node == null )
+                return null;
+            else if ( node.id.compareTo( key ) == 0 )
+            {
+                return parent;
+            }
+            else if ( node.left != null || node.right != null )
+            {
+                getParent( node.left, key, node );
+                getParent( node.right, key, node );
+            }
+            return parent;
+
+        }
+
+        // ---------------- add( String ) ------------------
+        /**
+         * Check if need to add the root; if not recurse using helper
+         */
+        public void add( String name, int value )
+        {
+            Node new1 = new Node( name, value );
+            if ( _root == null )
+                _root = new1;
+            else
+                add( _root, new1 );
+        }
+
+        // ---------------- add( Node, Node ) ------------------
+        /**
+         * add the entry to the right location in the subtree rooted at cur;
+         * 
+         * Do not add multiple entries with the same name; just give warning
+         * 
+         */
+        private void add( Node cur, Node new1 )
+        {
+            int cmp = new1.id.compareTo( cur.id );
+            if ( cmp < 0 ) // add to left subtree
+                if ( cur.left == null )
+                    cur.left = new1;
+                else
+                    add( cur.left, new1 );
+            else if ( cmp > 0 )
+                if ( cur.right == null )
+                    cur.right = new1;
+                else
+                    add( cur.right, new1 );
+            else
+                System.out.println( "Error: Tried to add another: "
+                        + new1.id );
+        }
+
+        // ---------------------- toString() -----------------------------
+        /**
+         * Print a textual representation of the tree as a tree
+         */
+        public String toString()
+        {
+            return toString( _root, 0, "" );
+        }
+
+        private String toString( Node n, int depth, String pre )
+        {
+            if ( n == null )
+                return "";
+            String retString = "";
+            for ( int d = 0; d < depth; d++ )
+                retString += "  ";
+            retString += pre + n.toString() + "\n";
+            return retString + toString( n.left, depth + 1, "L: " )
+                    + toString( n.right, depth + 1, "R: " );
+        }
+
+        // ---------------------- inString() -----------------------------
+        /**
+         * Print a textual representation of the tree as infix
+         */
+        public String inString()
+        {
+            return inString( _root );
+        }
+
+        private String inString( Node n )
+        {
+            if ( n == null )
+                return "";
+            return inString( n.left ) + n + ", " + inString( n.right );
+        }
+    }
+
+    // ++++++++++++++++++++++ inner Node class ++++++++++++++++++++++++++++++++
+    public static class Node
+    {
+        // ---- instance variables -------------
+        public Node left = null;
+        public Node right = null;
+        public String id;
+        public int value;
+
+        // ----------------- constructor ------------------
+        public Node ( String newId, int val )
+        {
+            id = newId;
+            value = val;
+        }
+
+        // ----------------- toString() -----------------
+        public String toString()
+        {
+            return id + "(" + value + ")";
+        }
+    }
+
+    // ---------------------- main ------------------------------
+    /**
+     * Test program
+     */
+    public static void main( String[] args )
+    {
+        Random rng = new Random( 2 );
+        System.out
+                .println( "--------------- Q2_TreeAdd Tests---------------" );
+        String[] names =
+        { "a", "b", "c", "d", "e", "f", "g", "h" };
+        ArrayList<String> aNames = new ArrayList<String>();
+        int maxValue = 10;
+
+        int nTrees = 5;
+        for ( int n = 0; n < nTrees; n++ )
+        {
+            Tree tree = new Tree();
+            int size = rng.nextInt( names.length );
+            for ( int i = 0; i < size; i++ )
+                aNames.add( names[i] );
+
+            for ( int i = 0; i < size; i++ )
+            {
+                int whichName = rng.nextInt( aNames.size() );
+                tree.add( aNames.get( whichName ), rng.nextInt( maxValue ) );
+                aNames.remove( whichName );
+            }
+
+            System.out.println( "----------- Tree " + n + " "
+                    + " ------------" );
+            System.out.println( tree );
+            Node parent = tree.getParent( names[n] );
+            System.out.println( "------ Parent of " + names[n] + ": "
+                    + parent + " ------------" );
+            // System.out.println( tree );
+
+            // System.out.println( "Infix: " + tree.inString() );
+            System.out.println( "---------------------------------------" );
+        }
+    }
+}

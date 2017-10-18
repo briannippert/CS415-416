@@ -1,0 +1,209 @@
+/**
+ * Q3_orderNeighborsList by exchanging Nodes in list
+ *
+ *  Traversal of a linked list with sentinels: orderNeighbors
+ *  
+ */
+import java.util.*;
+
+public class Q3_orderNeighborsList
+{
+  //////////////////////////////////////////////////////////////////
+  // DO NOT DECLARE ANY ADDITIONAL CLASS OR INSTANCE VARIABLES.
+  //////////////////////////////////////////////////////////////////
+  //++++++++++++++++++++++ inner List class ++++++++++++++++++++++++
+  public static class List
+  {
+    //////////////////////////////////////////////////////////////////
+    // DO NOT DECLARE ANY ADDITIONAL CLASS OR INSTANCE VARIABLES.
+    //////////////////////////////////////////////////////////////////
+    //------------ instance variables ----------------------
+    private Node   head = null;
+    private Node   tail = null;
+    private int    size = 0;
+    
+    //----------------------- orderNeighbors() ------------------------
+    public int orderNeighbors()
+    {
+      if ( size < 2 )
+        return 0;
+      else
+        return orderNeighbors( head.next );
+    }
+    ////////////////////////////////////////////////////////////////////
+    // DO NOT CHANGE ANYTHING ABOVE HERE
+    ////////////////////////////////////////////////////////////////////
+    //-------------------- orderNeighbors( Node ) -----------------------
+    /**
+     * Traverse the list once recursively. For every adjacent pair
+     *  of nodes, check if they are in order. i.e., the first of the pair
+     *  should have a "value" field that is LESS than the 2nd of the pair.
+     * 
+     * If they are not in order, swap the two NODES, NOT THEIR VALUES
+     * I.e., change the links in the list so that the 2 nodes are reordered.
+     */ 
+    private int orderNeighbors( Node node )
+    {
+      //////////////////////////////////////////////////////////////////
+      //
+      //             ADD YOUR CODE HERE 
+      //
+      /////////////////////////////////////////////////////////////////
+      // 1. Think carefully about the base conditions.
+      // 2. Consider using local variables to help swapping the 
+      //    nodes; you are less likely to forget to update a link, or
+      //    updated it incorrectly.
+      // 3. Remember to return the number of swaps made from this point
+      //    to the end of the list.
+      //
+      // DON'T SWAP THE VALUES OF THE NODES; YOU MUST MOVE THE NODES 
+      //   THEMSELVES. You will get 0 points if you swap values.
+      //////////////////////////////////////////////////////////////////
+      int swapCount = 0;
+      if(node == null || node == tail || node == head)
+        return 0;
+      else if(node.value < node.next.value)
+        return swapCount + orderNeighbors(node.next);
+      else if(node.value > node.next.value)
+      {
+       node.prev.next = node.next;
+     //  node.next.next.prev = node;
+       node.next.prev = node.next;
+       node.prev = node.next;
+       node.next.next = node;
+       node.next = node.next.next;
+
+        
+      
+        swapCount++;
+       return swapCount + orderNeighbors(node.next);
+      } 
+      
+      
+      
+      return swapCount;
+    }
+    
+    //////////////////////////////////////////////////////////////////////
+    //
+    // DO NOT CHANGE ANY CODE BELOW HERE.
+    //
+    //////////////////////////////////////////////////////////////////////
+    //----------------------- constructor --------------------------------
+    /**
+     * This is a linked list with 2 sentinels
+     */
+    public List()
+    {
+      head = new Node( "-", 0 );
+      tail = new Node( "-", 0 );
+      tail.prev = head;
+      head.next = tail;
+      size = 2;      // count the sentinels here
+    }
+    //----------------------- add( String, int ) -------------------------
+    public void add( String name, int val )   // add to tail
+    {
+      Node node = new Node( name, val );
+      node.next = tail;
+      node.prev = tail.prev;
+      node.prev.next = node;
+      tail.prev = node;
+      size++;
+    }  
+    //--------------------- toString() ----------------------------------
+    public String toString()
+    {
+      int count = 0;
+      Node cur = head;
+      String s = "";
+      while ( cur != null && count < size )
+      {
+        s += "[" + cur.id + "," + cur.value +"] --> ";
+        cur = cur.next;
+        count++;
+      }
+      if ( cur != null )
+        System.out.println( "toString: *****************************"
+                             + " List size exceeded; in a 'next' loop" );
+      return s.substring( 0, s.length() - 4 );
+    }
+    //------------------------ check -----------------------------------------
+    /**
+     * check prev and next references throughout list
+     */
+    public void check()
+    {
+      int count = 0;
+      Node cur = head.next;
+      while ( cur != tail && count < size )
+      {
+        if ( cur != cur.next.prev )
+          System.out.println( "***********Inconsistent links from: "
+                               + cur + " to " + cur.next );
+        if ( cur.prev.next != cur )
+          System.out.println( "************Inconsistent link from: "
+                               + cur.prev + " to " + cur );
+        cur = cur.next;
+        count++;
+      }
+      if ( cur != tail )
+        System.out.println( "check: *****************************"
+                             + " List size exceeded; in a 'next' loop" );
+    }
+  }
+  
+  //++++++++++++++++++++++ inner Node class ++++++++++++++++++++++++++++++++
+  public static class Node
+  {
+    //---- instance variables -------------
+    public Node next;
+    public Node prev;
+    public String id; 
+    public int    value;
+    //-----------------------------------
+    public Node( String newId, int val )
+    {
+      id = newId;
+      value = val;
+      next  = null; 
+      prev  = null;
+    }
+    //--------------- toString() ---------------
+    public String toString()
+    {
+      String s = "";
+      s += id + "(" + value + ") ";
+      return s;
+    }
+  }
+  //---------------------- main ------------------------------
+  /**
+   * Test program
+   */
+  public static void main( String[] args )
+  {
+    System.out.println( "------------- Q3 Test -------------" );
+    List l = new List();
+    String[] names = { "a", "b", "c", "d", "e", "f", "g" };
+    
+    Random rng = new Random( 0 );
+    int  nNodes = names.length;
+    for ( int i = 0; i < nNodes; i++ )
+      l.add( names[ rng.nextInt( names.length ) ], rng.nextInt( 20 ));
+    System.out.println( "List: " + l );
+    l.check();
+    
+    int nTraversals = 7;
+    int swaps = 1;
+    for ( int i = 0; i < nTraversals && swaps > 0; i++ )
+    {
+      swaps = l.orderNeighbors();
+      l.check();
+      System.out.println( "\n--- swaps: " + swaps + " ---------" );
+      System.out.println( "List: " + l );
+    }
+    System.out.println( "-------------------------------" );        
+  }
+}
+

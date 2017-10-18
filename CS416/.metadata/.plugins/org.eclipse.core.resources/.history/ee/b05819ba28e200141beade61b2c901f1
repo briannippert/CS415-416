@@ -1,0 +1,217 @@
+import java.util.ArrayList;
+
+/**
+ * Move class for Aces Up.
+ * 
+ * Encapsulate the information for a Move.
+ * 
+ * @author Brian Local
+ */
+public class Move
+{
+    // ------------------------ instance variables --------------------------
+    // //////////////////////////////////////////////////
+    // You need not use this variables. It is here so start code compiles.
+    private boolean hasMoved = false;
+    private Card card = null;
+
+    /**
+     * Constructor for the move class.
+     * 
+     * @return
+     */
+    public Move ( int x )
+    {
+        // System.out.println( isEmpty() );
+        if ( x == 0 )
+        {
+            this.drawCards();
+            hasMoved = true;
+            return;
+        }
+        else if ( needToDraw() == true )
+        {
+            hasMoved = true;
+            Move.drawCards();
+        }
+        else if ( validMoveTest( x ) == true )
+        {
+            hasMoved = true;
+        }
+        else if ( isEmpty() != -1 )
+        {
+            int y = this.isEmpty();
+            // System.out.println( y );
+            hasMoved = true;
+            this.moveToEmpty( y );
+        }
+        else
+        {
+
+        }
+
+    }
+
+    public boolean hasMoved()
+    {
+        return hasMoved;
+    }
+
+    /**
+     * Method Deals 4 cards to the base piles.
+     */
+    public static void drawCards()
+    {
+        if ( Game._drawPile.getStack().isEmpty() == false )
+        {
+            for ( int i = 0; i < 4; i++ )
+            {
+
+                Game._play[i].getStack().push(
+                        Game._drawPile.getStack().pop() );
+
+            }
+            Reporter.logMove( 'D', "Draw" );
+        }
+    }
+
+    /**
+     * Moves cards to the play piles.
+     * 
+     * @param x
+     *            int
+     * @return boolean
+     */
+    public boolean moveToEmpty( int x )
+    {
+        // System.out.println( "Move to Empty Called" );
+        int temp = Game.getHeighest();
+
+        if ( Game._play[temp].getStack().isEmpty() == false
+                && Game._play[temp].getStack().size() > 1 )
+        {
+            Reporter.logMove( 'p', Game._play[temp].getStack().peek()
+                    .toString() );
+            Game._play[x].getStack()
+                    .push( Game._play[temp].getStack().pop() );
+
+            // System.out.println( "MTE TRUE" );
+            return true;
+
+        }
+        // System.out.println( "MTE FALSE" );
+
+        return false;
+
+    }
+
+    /**
+     * Tests to see if the cards can be drawn.
+     * 
+     * @return boolean
+     */
+    public boolean needToDraw()
+    {
+        if ( Game._play[0].size() == 0 && Game._play[1].size() == 0
+                && Game._play[2].size() == 0 && Game._play[3].size() == 0 )
+        {
+            return true;
+        }
+        else
+            return false;
+    }
+
+    /**
+     * Moves cards.
+     * 
+     * @param x
+     *            int
+     */
+    public static void moveCard( int x )
+    {
+        if ( Game._play[x - 1].getStack().isEmpty() == false )
+        {
+            Reporter.logMove( 'd', Game._play[x - 1].getStack().peek()
+                    .toString() );
+            Game._discards.getStack().push(
+                    Game._play[x - 1].getStack().pop() );
+
+        }
+    }
+
+    /**
+     * Tests to see if one of the play piles is empty.
+     * 
+     * @return int i
+     */
+    public int isEmpty()
+    {
+        for ( int i = 0; i < 4; i++ )
+        {
+            if ( Game._play[i].getStack().isEmpty() == true )
+            {
+                System.out.println( "Pile " + i + " "
+                        + Game._play[i].getStack().isEmpty() );
+                return i;
+            }
+        }
+        return -1;
+
+    }
+
+    /**
+     * tests to see if a move is valid.
+     * 
+     * @param x
+     *            int
+     * @return boolean
+     */
+    public static boolean validMoveTest( int x )
+    {
+        int col = 0;
+        if ( Game._play[x - 1].getStack().isEmpty() == false )
+        {
+            Card temp = Game._play[x - 1].getStack().peek();
+            ArrayList<Card> list = new ArrayList<Card>();
+            for ( int i = 0; i < 4; i++ )
+            {
+                if ( Game._play[i].getStack().isEmpty() == false )
+                {
+                    list.add( Game._play[i].getStack().peek() );
+                    col++;
+                }
+            }
+            for ( int i = 0; i < col; i++ )
+            {
+                if ( list.get( i ).getRank().ordinal() > temp.getRank()
+                        .ordinal()
+                        && list.get( i ).getSuit().ordinal() == temp
+                                .getSuit().ordinal() )
+                {
+                    // System.out.println( "Move Called" );
+                    Move.moveCard( x );
+                    // System.out.println( " Valid Move True" );
+                    return true;
+
+                }
+
+            }
+        }
+        // System.out.println("Valid Move False");
+        return false;
+    }
+
+    // -------------------- toString() ---------------------------------
+    /**
+     * Return string representation for a Pile; needs to be compact.
+     * 
+     * @return String
+     */
+    public String toString()
+    {
+        if ( card != null )
+            return card.toString();
+        else
+            return "Draw";
+    }
+}

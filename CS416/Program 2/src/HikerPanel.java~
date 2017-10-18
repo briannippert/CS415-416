@@ -1,0 +1,314 @@
+//++++++++++++++++++++++++ HikerPanel.java ++++++++++++++++++++++++++++++++
+import java.util.*;
+import java.awt.*;
+
+import javax.swing.*;
+
+import java.awt.event.*;
+
+/**
+ * HikerPanel.java: Skeleton Swing panel for Hiker assignment.
+ *
+ * This class is responsible for 1. Generating an array of random goal
+ * positions (done). 2. Drawing markers at each goal position 3. creating the
+ * Hiker that must do the traversal 4. Managing the events (timer and mouse)
+ * that control the Hiker's path and affect the nGoals including the emergency
+ * nGoals.
+ * 
+ * @author rdb 01/27/15
+ */
+
+public class HikerPanel extends JPanel implements Animated, MouseListener
+{
+    // -------------------- class variables -------------------------
+    // Command line argument defaults and settings;
+    //
+    private static int nGoalsDefault = 5;
+    private static int speedDefault = 20;
+    private static int seedDefault = 1;
+
+    // initializing the settings might be useful if other modes of invocation
+    // are employed (not based on a command line invocation).
+    private static int nGoals = nGoalsDefault;
+    private static int speed = speedDefault;
+    private static int seed = seedDefault;
+
+    // ------ Other static variables
+    private static Point home = new Point( 100, 100 );
+    private static int delay = 100; // time in mseconds between updates
+    private static int startupDelay = 2000; // wait 4 seconds at the start
+    private static int pauseDelay = 1000; // wait 2 seconds at each goal
+    private static int panelW;
+    private static int panelH;
+
+    // -------------------- instance variables ----------------------
+    private FrameTimer _timer;
+    private boolean _animated = true; // for Animated interface
+    private Point _p1;
+    private Hiker _h1;
+    private Site _home;
+    private Stack<Point> _s1;
+    private boolean canpop = true;
+    private Point dest;
+    private Point ori;
+    private float dist;
+    private int xdist;
+    private int ydist;
+    private float steps = 0;
+    private int x = 0;
+    private float dx = 0;
+    private float dy = 0;
+
+    // ------------- Constructor ---------------------------------
+    /**
+     * Create and display and manipulate a Hiker using Swing.
+     * 
+     * 
+     * @param panelWidth
+     *            int
+     * @param panelHeight
+     *            int
+     */
+    public HikerPanel ( int panelWidth, int panelHeight )
+    {
+        super();
+        panelW = panelWidth;
+        panelH = panelHeight;
+
+        this.setLayout( null );
+        this.setBackground( Color.LIGHT_GRAY );
+        this.addMouseListener( this );
+        _s1 = new Stack<Point>();
+        _s1.push( home );
+        Point[] siteLocations = makePath( HikerPanel.nGoals );
+
+        for ( int i = 0; i < siteLocations.length; i++ )
+        {
+            Site s1 = new Site( siteLocations[i], Color.CYAN );
+            add( s1 );
+        }
+        _home = new Site( home, Color.BLUE );
+        _h1 = new Hiker( home );
+        add( _home );
+        add( _h1 );
+        // System.out.println( _home.getLocation());
+        // System.out.println(_h1.getLocation());
+
+        // ////////////////////////////////////////////////////////////
+        // 1. Need to make Site objects from the siteLocations Point array.
+        // 2. Need to create the Hiker and start it in the home position.
+        // 3. Need to handle FrameTimer events to get the Hiker to move
+        // in steps in each frame towards the next Site.
+        // 4. When it gets to the next Site, it needs to pause and then
+        // head for the next site, until it is done and it goes to home.
+        // 5. Then, you need to handle the mouse events so the hiker
+        // can take side visits as it is moving through the site list.
+        // You'll need to set up this class as a MouseListener and handle
+        // mouse events to do that.
+        // /////////////////////////////////////////////////////////////
+
+        _timer = new FrameTimer( delay, this );
+        _timer.setInitialDelay( startupDelay );
+        _timer.start();
+
+    }
+
+    // ----------------------- makePath --------------------------------
+    /**
+     * Create the series of locations that define the principal path to be
+     * followed by the Hiker.
+     * 
+     * @param n
+     *            int Number of sites to put on the path
+     * @return Point[] array of sites
+     */
+    private Point[] makePath( int n )
+    {
+        Random ranGen = new Random( HikerPanel.seed );
+        int xMax = panelW - 30; // -30 keeps location enough inside
+        int yMax = panelH - 30; // that at least part of site shows.
+        Point[] array = new Point[n];
+        for ( int i = 0; i < n; i++ )
+        {
+            int x = ranGen.nextInt( xMax );
+            int y = ranGen.nextInt( yMax );
+            array[i] = new Point( x, y );
+            Point tempp = new Point( x, y );
+            _s1.push( tempp );
+        }
+        return array;
+    }
+
+    // +++++++++++++++++++ Animated interface +++++++++++++++++++++++++++
+    // ---------------------- newFrame ------------------------------
+    /**
+     * Move hiker for each frame; this is called by the FrameTimer listener
+     * that gets invoked when the time interval elapses and awt creates an
+     * event.
+     */
+    public void newFrame()
+    {
+
+        if(_s1.empty() == true)
+        {
+            _s1.push( home );
+        }
+        if ( canpop == true )
+        {
+            canpop = false;
+            dest = _s1.pop();
+            ori = _h1.getLocation();
+            xdist = dest.x - ori.x;
+            ydist = dest.y - ori.y;
+
+            float c = (float) ( (float) ( Math.pow( xdist, 2 ) ) + ( Math
+                    .pow( ydist, 2 ) ) );
+
+            dist = (float) Math.sqrt( c );
+            steps = dist / speed;
+            dx = xdist / steps;
+            dy = ydist / steps;
+            // System.out.println( "dx " + dx );
+            // System.out.println( "dy " + dy );
+            // System.out.println( "xdist " + xdist );
+            // System.out.println( "ydist " + ydist );
+            // System.out.println( "steps " + steps );
+            // System.out.println( "dist " + dist );
+            // System.out.println( "c " + c );
+            steps = (int) steps;
+            System.out.println( x );
+            System.out.println( steps );
+        }
+        if ( x == steps )
+        {
+            _h1.setLocation( dest.x, dest.y );
+            _timer.restart();
+            x = 0;
+            canpop = true;
+
+        }
+        else if ( x < steps )
+        {
+            _h1.setLocation( (int) dx + _h1.getLocation().x,
+                    (int) dy + _h1.getLocation().y );
+            x++;
+
+        }
+
+        // //////////////////////////////////////////////////////////////////
+        // Here that you must include the logic for keeping track of where
+        // you are in the Site list and whether the hiker has gotten to a Site
+        // and how to figure out which Site was just completed and what to do
+        // next. Of course, you'll need instance variables to help with that.
+        //
+        // You'll also need to turn the timer on and off as appropriate and
+        // you may need to change the initialDelay -- a Mouse event
+        // causes the Hiker to change Site targets, but if you stop the
+        // timer, you'll need to restart it with 0 initialDelay.
+        // /////////////////////////////////////////////////////////////////
+
+        repaint();
+    }
+
+    // ------------------- setAnimated( boolean ) -------------------------
+    /**
+     * Set the animated state of the object.
+     * 
+     * @param onOff
+     *            boolean
+     */
+    public void setAnimated( boolean onOff )
+    {
+        _animated = onOff;
+    }
+
+    // ------------------- isAnimated( ) -------------------------
+    /**
+     * Return the animated state of the object.
+     * 
+     * @return boolean
+     */
+    public boolean isAnimated()
+    {
+        return _animated;
+    }
+
+    // ++++++++++++++++++ MouseListener methods +++++++++++++++++++++++++++
+    // You need to implement mousePressed; the others must be there but
+    // will remain "empty".
+    //
+    // ------------------- mousePressed( MouseEvent ) ----------------------
+    /**
+     * On mousePressed, replace current goal with a goal at the mouse position.
+     * 
+     * @param me
+     *            MouseEvent
+     */
+    public void mousePressed( MouseEvent me )
+    {
+        System.out.println( "Side goal: " + me.getPoint() );
+        _p1 = me.getPoint();
+        Site s1 = new Site( _p1, Color.RED );
+        add( s1 );
+        _s1.push( me.getPoint() );
+        repaint();
+    }
+
+    // ------------- unused interface methods -----------------
+    /** Unused interface. @param me MouseEvent */
+    public void mouseDragged( MouseEvent me )
+    {
+    }
+
+    /** Unused interface. @param me MouseEvent */
+    public void mouseClicked( MouseEvent me )
+    {
+    }
+
+    /** Unused interface. @param me MouseEvent */
+    public void mouseEntered( MouseEvent me )
+    {
+    }
+
+    /** Unused interface. @param me MouseEvent */
+    public void mouseExited( MouseEvent me )
+    {
+    }
+
+    /** Unused interface. @param me MouseEvent */
+    public void mouseMoved( MouseEvent me )
+    {
+    }
+
+    /** Unused interface. @param me MouseEvent */
+    public void mouseReleased( MouseEvent me )
+    {
+    }
+
+    // ---------------------------- readArgs ----------------------------
+    /**
+     * Set up the runtime static parameters than can be controlled by command
+     * line arguments.
+     * 
+     * @param args
+     *            String[] command line arguments
+     */
+    public static void readArgs( String[] args )
+    {
+        nGoals = ReadArgs.getArg( args, 0, nGoalsDefault );
+        speed = ReadArgs.getArg( args, 1, speedDefault );
+        seed = ReadArgs.getArg( args, 2, seedDefault );
+    }
+
+    // ---------------------------- main ----------------------------
+    /**
+     * DrJava convenience main for starting the app.
+     * 
+     * @param args
+     *            String[] command line arguments
+     */
+    public static void main( String[] args )
+    {
+        HikerApp.main( args );
+    }
+}

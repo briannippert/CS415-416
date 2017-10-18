@@ -1,0 +1,13 @@
+#
+# Very simple graph: a list.
+#
+node a b c d
+edge a b
+edge b c
+edge c d
+
+#start a 
+#end   d
+
+path a d  # set start end
+#path b c  # set start end

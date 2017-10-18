@@ -1,0 +1,253 @@
+//+++++++++++++++++++++++++++ Pellet.java +++++++++++++++++++++++++++
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.geom.Point2D;
+import javax.swing.*;
+import java.util.*;
+
+/**
+ * Pellet - output from an AirGun.
+ *
+ * @author rdb Last edited: 02/12/15 made checkstyle compatible
+ */
+
+public class Pellet extends JEllipse implements Animated
+{
+    // ----------------- class variables -----------------------------
+    static float speed = 10; // This gets changed by the GUI
+    static int pelletSize = 10; // This is a constant, but in principle it
+                                // could be changed by modifying the size
+                                // from the main app. Mke sure you use
+                                // the variable and the constant 10.
+
+    // ----------------- instance variables --------------------------
+    private double xIncr, yIncr; // update position on each new frame
+    private double xLoc, yLoc; // maintain float values for location.
+    private Point center;
+    private JEllipse e1;
+    private int time = 0;
+
+    // ----------------- constructor --------------------------------
+    /**
+     * Create Pellet that is emitted at (x,y) and travels in the direction dx,
+     * dy where the magnitude of dx, dy defines the speed (along with the frame
+     * update rate).
+     * 
+     * The Pellet must disapper when it leaves the frame or if it hits a
+     * target.
+     * 
+     * @param x
+     *            int
+     * @param y
+     *            int
+     * @param dx
+     *            double
+     * @param dy
+     *            double
+     */
+    public Pellet ( int x, int y, double dx, double dy )
+    {
+        super( x, y );
+        super.setSize( pelletSize, pelletSize );
+        this.setLocation( x - 5, y - 5 );
+        this.setColor( Color.black );
+        this.setSize( pelletSize, pelletSize );
+        xIncr = dx;
+        yIncr = dy;
+
+        // DELETE THESE LINES AS SOON AS IT IS NOT TRUE -- AND OTHERS LIKE IT.
+        // System.out.println( "Pellet.Ctor() not complete" );
+
+    }
+
+    // ------------------ getCenter() ------------------------
+    /**
+     * Constructor.
+     * 
+     * @return Point
+     */
+    public Point getCenter()
+    {
+        // DELETE THESE LINES AS SOON AS IT IS NOT TRUE -- AND OTHERS LIKE IT.
+        // System.out.println( "Pellet.getCenter() not complete" );
+        Point p1 = this.getLocation();
+        int p2x = p1.x + 5;
+        int p2y = p1.y + 5;
+        center = new Point( p2x, p2y );
+        return center;
+    }
+
+    // -------------------- setMove( Point2D.Float ) -----------------------
+    /**
+     * Define the move increments as float components of the UNIT vector that
+     * represents the direction of the air gun.
+     * 
+     * @param vector
+     *            Point2D.Float
+     */
+    public void setMove( Point2D.Float vector )
+    {
+        // DELETE THESE LINES AS SOON AS IT IS NOT TRUE -- AND OTHERS LIKE IT.
+        // System.out.println( "Pellet.setMove( Point2D ) not implemented" );
+
+    }
+
+    // -------------------- setMove( double, double ) -----------------------
+    /**
+     * define the move increments.
+     * 
+     * @param dx
+     *            double
+     * @param dy
+     *            double
+     */
+    public void setMove( double dx, double dy )
+    {
+        // DELETE THESE LINES AS SOON AS IT IS NOT TRUE -- AND OTHERS LIKE IT.
+        // System.out
+        // .println( "Pellet.setMove( double,double ) not implemented" );
+        double newx = dx;
+        double c = 0.02;
+        Point p1 = this.getCenter();
+        double newy;
+        double gravity = .05 * time * time;
+
+        newy = time * c * dy + gravity;
+
+        this.setLocation( (int) ( p1.x + newx ), (int) ( p1.y + newy ) );
+        // System.out.println( "setMove Called" );
+        time++;
+    }
+
+    // ------------- setLocation( double, double ) -----------------------
+    /**
+     * Set the location with a 2 float values; remember the floats and call
+     * superclass with int versions.
+     * 
+     * @param xf
+     *            double
+     * @param yf
+     *            double
+     */
+    public void setLocation( double xf, double yf )
+    {
+        // DELETE THESE LINES AS SOON AS IT IS NOT TRUE -- AND OTHERS LIKE IT.
+        // System.out.println( "Pellet.setLocation( double,double ) not done."
+        // );
+
+        super.setLocation( (int) xf + 5, (int) yf + 5 );
+        // Besides saving the values, be sure you invoke the superclass
+        // setLocation( int, int ).
+
+    }
+
+    // /////////////////////////////////////////////////////////////////////
+    // ++++++++++++++++++++++ Animated interface methods +++++++++++++++++++
+    // /////////////////////////////////////////////////////////////////////
+    private boolean _animated = true;
+
+    // ----------------------- newFrame() ------------------------------
+    /**
+     * Update the image for the next frame.
+     */
+    public void newFrame()
+    {
+        // DELETE THESE LINES AS SOON AS IT IS NOT TRUE -- AND OTHERS LIKE IT.
+        // System.out.println( "Pellet.newFrame( double,double ) not done." );
+
+        //
+        // Update the (double) location of the pellet using the double values
+        // saved, not the int values known by the JLine class.
+        //
+        // You should also compute the actual center of the pellet; this is
+        // a better position to use for intersection testing than the upper
+        // left corner of the bounding rectangle.
+        // You can also redefine the "location" to be the center as long
+        // as you are consistent everywhere.
+
+        this.setMove( xIncr, yIncr );
+        // System.out.println( "newFrame Called" );
+    }
+
+    // /////////////////////////////////////////////////////////////////////
+    // Code Animated interface below here should not need to be changed,
+    // but you can.
+    // You do have to add code the main method.
+    // /////////////////////////////////////////////////////////////////////
+    // ---------------------- setAnimated() ------------------------------
+    /**
+     * sets animated status of the object.
+     * 
+     * @param onOff
+     *            boolean
+     */
+    public void setAnimated( boolean onOff )
+    {
+        _animated = onOff;
+    }
+
+    // ---------------------- isAnimated()
+    // --------------------------------------
+    /**
+     * returns true if currently in animated state.
+     * 
+     * @return boolean
+     */
+    public boolean isAnimated()
+    {
+        return _animated;
+    }
+
+    // ++++++++++++++++++++++++ end Animated interface ++++++++++++++++++
+
+    // ++++++++++++++++++ Unit test +++++++++++++++++++++++++++++++++++++
+    // Unit test needs to display a bunch of pellets at different locations.
+    //
+    //
+    private static ArrayList<Pellet> pellets;
+
+    /** Timer event handler class. */
+    private static class MoveListener implements ActionListener
+    {
+        // ---------------- actionPerformed( ActionEvent ) -------------
+        /** Called when time interval elapses. @param e ActionEvent */
+        public void actionPerformed( ActionEvent e )
+        {
+            for ( Pellet p : pellets )
+                p.newFrame();
+        }
+    }
+
+    // ------------------------ main ----------------------------------
+    /**
+     * Unit test for Pellet display. This just displays a number of pellets at
+     * different locations in the panel. No animation.
+     * 
+     * @param args
+     *            String[] Command line arguments
+     */
+    public static void main( String[] args )
+    {
+        // ////////////////////////////////////////////
+        // Boilerplate for simple Swing unit tests
+        // ////////////////////////////////////////////
+        JFrame frame = new JFrame( "Pellet test" );
+        frame.setSize( 400, 300 ); // define window size
+        frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        JPanel panel = new JPanel();
+        panel.setLayout( null );
+        frame.add( panel ); // add it to the frame
+        frame.setVisible( true ); // make it visible.
+        Pellet p1 = new Pellet( 50, 50, 10, 10 );
+        panel.add( p1 );
+        System.out.println( p1.getCenter() );
+        Pellet p2 = new Pellet( 0, 0, 10, 10 );
+        panel.add( p2 );
+        System.out.println( p2.getCenter() );
+        // ////////////////////////////////////////////////////////////
+        // Add a bunch of pellets to the panel at different locations.
+        // ///////////////////////////////////////////////////////////
+
+        panel.repaint(); // end with repaint, so it all comes out.
+    }
+}

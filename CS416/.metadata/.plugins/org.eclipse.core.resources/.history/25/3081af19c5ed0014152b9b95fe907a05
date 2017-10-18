@@ -1,0 +1,181 @@
+/**
+ * Q1_heightNTree -- this class uses a n-way tree class, NTree, in 
+ *                   which every node can have any number of children.
+ * 
+ * The main program creates a randomly determined set of children nodes.
+ * 
+ */
+
+import java.util.*;
+import java.io.*;
+import java.awt.*;
+
+public class Q1_heightNTree 
+{
+    //++++++++++++++++++++++++ NTree inner class  ++++++++++++++++++++++
+    public static class NTree
+    {
+        //////////////////////////////////////////////////////////////////
+        // DO NOT DECLARE ANY ADDITIONAL CLASS OR INSTANCE VARIABLES.
+        //////////////////////////////////////////////////////////////////
+        
+        //------------ NTree instance variables -------------------------
+        private NNode root = null;
+        //----------------------- depth() ------------------------------
+        public int height()
+        {
+            return height( root );
+        }
+        ////////////////////////////////////////////////////////////////////
+        // DO NOT CHANGE ANYTHING ABOVE HERE
+        ////////////////////////////////////////////////////////////////////
+        
+        //------------------- height( NNode ) ---------------------------
+        /**
+         * Compute the height of the subtree rooted at node
+         *   
+         */
+        int height = 0;
+        int h = 0;
+        private int height( NNode node )
+        {      
+          if(node == null)
+            return height;
+           
+         else if(node.kids != null)
+         {
+           height++;
+           for(NNode n: node.kids)
+           {
+            
+           
+           
+           
+         }
+          
+         }  
+            
+            
+            
+            return height;   // you may need to change this line
+        }
+        ////////////////////////////////////////////////////////////////////
+        //
+        //                DO NOT CHANGE ANYTHING BELOW HERE
+        //
+        ////////////////////////////////////////////////////////////////////
+        //-------------- addKids( NNode, int ) -----------------------------
+        /**
+         * recursive method to generate some random children nodes
+         */
+        public void addKids( NNode cur, int depth )
+        {
+            if ( depth >= maxDepth  || nodeCount >= maxNodes )  // if max depth, 
+                //or max nodes, don't add any kids
+                return;
+            
+            int maxRand = maxDepth - depth + 1; 
+            
+            int addKids = rng.nextInt( maxRand );
+            if ( addKids <  2 || depth == 0 )
+            {
+                cur.kids = new ArrayList<NNode>();
+                int nKids = rng.nextInt( maxChildren );
+                
+                for ( int i = 0; i < nKids; i++ )
+                {
+                    NNode newKid = makeNode();
+                    cur.kids.add( newKid );
+                    addKids( newKid, depth + 1 );
+                }
+            }
+        }
+        //-------------------------- toString() -------------------------
+        /**
+         * Generate a string representation of the tree.
+         */
+        public String toString()
+        {
+            return toString( root, 0, "" ) ;        
+        }
+        //----------------- toString( NNode, int ) -------------------------
+        private String toString( NNode node, int depth, String prefix )
+        {
+            String ret = "";
+            if ( node == null )
+                return "";
+            for ( int d = 0; d < depth; d++ )
+                ret += "   ";
+            ret += prefix + node.toString() + "\n";
+            if ( node.kids != null )
+            {
+                int k = 0;
+                for ( NNode n: node.kids )
+                    ret += toString( n, depth + 1, k++ + ": " );
+            }
+            return ret;
+        }
+        
+    }
+    //++++++++++++++++++++++++ NNode inner class +++++++++++++++++++++++++
+    public static class NNode
+    {
+        String           id;
+        int              value;
+        ArrayList<NNode> kids = null;
+        
+        //----------- constructor --------------------------------
+        NNode( String name, int val ) 
+        {
+            kids  = null;
+            id    = name;
+            value = val;
+        }
+        //--------------- toString() -----------------------------
+        public String toString()
+        { 
+            return "<" + id + ":" + value + ">";
+        }
+        
+    }
+    //----------------- class variables ------------------------------------
+    private static Random rng = new Random( 50 );
+    private static int maxVal = 20;
+    private static int maxNodes = 20;
+    private static int nodeCount = 0;
+    private static int maxDepth = 3;
+    private static int maxChildren = 5;
+    
+    private static String char1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static String char2 = "abcdefghijklmnopqrstuvwxyz";
+    //------------------- makeNode() ------------------------------------
+    static NNode makeNode()
+    {
+        String name = "" + char1.charAt( rng.nextInt( char1.length() ))
+            + char2.charAt( rng.nextInt( char2.length() ));
+        int val    = rng.nextInt( maxVal + 1 );
+        nodeCount++;
+        return new NNode( name, val );
+    }
+    //--------------------- main -----------------------------------------
+    public static void main( String[] args )
+    {
+        int    maxVal = 20;
+        int    nTrees   = 4;
+        NTree  tree = null;
+        
+        for ( int t = 0; t < nTrees; t++ )
+        {  
+            nodeCount = 0;
+            tree = new NTree( );
+            if ( t != nTrees - 1 ) // last tree will be empty
+            {            
+                tree.root = new NNode( "root", 0 );
+                tree.addKids( tree.root, 0 );
+            }
+            System.out.println( "------------ Tree " + t + " ----------" );    
+            System.out.println( tree );
+            System.out.println( "------ Height: " + tree.height() + "\n" );
+        }
+    }
+}        

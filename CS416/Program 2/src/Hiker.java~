@@ -1,0 +1,129 @@
+//+++++++++++++++++++++ Hiker.java +++++++++++++++++++++++++++++++++
+////////////////////////////////////////////////////////////////////
+// This is a bare skeleton of an icon representing the hiker.
+// Things to remember:
+// 1. You must make sure that your icon clearly identifies where its location
+//    is and that its location clearly corresponds to the location of sites 
+//    that it visits during its hike.
+// 2. You will be the author, not me, so complete the author javadoc
+// 3. delete these intro comments; once you finish, they are irrelevant.
+//////////////////////////////////////////////////////////////////////
+import java.awt.*;
+import javax.swing.*;
+import java.util.*;
+
+/**
+ * Hiker.java:
+ * 
+ * A very simple representation of a hiker.
+ * 
+ * @author rdb
+ */
+
+public class Hiker extends JComponent
+{
+    // ---------------------- instance variables --------------------------
+    JRectangle r1;
+    JEllipse e1;
+    Point h;
+
+    // ----------------------- constructor --------------------------------
+    /**
+     * Constructor takes the location of the Hiker as parameter. The hiker icon
+     * needs to have a graphical form that clearly shows where its location is.
+     * 
+     * @param pt
+     *            Point
+     */
+    public Hiker ( Point pt )
+    {
+        super.setSize( 1000, 1000 );
+        e1 = new JEllipse();
+        r1 = new JRectangle();
+        r1.setSize( 20, 40 );
+        e1.setSize( 20, 20 );
+        Color c1 = new Color( 0, 0, 255, 180 );
+        Color c2 = new Color( 0, 0, 0, 180 );
+        r1.setColor( c1 );
+        e1.setColor( c2 );
+        this.setLocation( pt.x, pt.y );
+        add( r1 );
+        add( e1 );
+
+    }
+
+    /**
+     * Gets the location of the hiker in the center of the head.
+     * 
+     * @return p1
+     */
+    public Point getLocation()
+    {
+        Point p1 = new Point( e1.getLocation().x + 10,
+                e1.getLocation().y + 10 );
+        return p1;
+
+    }
+
+    /**
+     * Test's the set and get Location methods.
+     */
+    public void locationTest()
+    {
+        JEllipse e2 = new JEllipse( 50, 180 );
+
+        e2.setSize( 1, 1 );
+        add( e2 );
+        this.setLocation( 50, 180 );
+        System.out.println( "Location Should be : " + e2.getLocation() );
+        System.out.println( "Current Location: " + getLocation() );
+    }
+
+    /**
+     * Sets the hikers Location.
+     * 
+     * @param x
+     *            int
+     * @param y
+     *            int
+     */
+    public void setLocation( int x, int y )
+    {
+        e1.setLocation( x - 10, y - 10 );
+        r1.setLocation( x - 10, y + 8 );
+
+    }
+
+    // ///////////////////////////////////////////////////////////////
+    // You'll want other methods that make objects of this class
+    // convenient to use in your application.
+    // ///////////////////////////////////////////////////////////////
+
+    // ------------------------ main ----------------------------------
+    /**
+     * Unit test for Hiker.
+     * 
+     * @param args
+     *            String[] Command line araguments
+     */
+    public static void main( String[] args )
+    {
+        JFrame frame = new JFrame( "Site test" );
+        frame.setSize( 400, 300 ); // define window size
+        frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        JPanel panel = new JPanel();
+        panel.setLayout( null );
+        frame.add( panel ); // add it to the frame
+        frame.setVisible( true ); // make it visible.
+        Point p = new Point( 100, 100 );
+        Hiker h1 = new Hiker( p );
+        panel.add( h1 );
+        h1.locationTest();
+
+        // ////////////////////////////////////////////////////////
+        // Clearly demonstrate the relationship of your Hiker object
+        // to its location.
+        // /////////////////////////////////////////////////////////
+
+    }
+}

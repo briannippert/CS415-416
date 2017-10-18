@@ -1,0 +1,446 @@
+-------------------------------4/14/15 9:33 AM-------------------------------
+
+-------------------------------4/14/15 9:34 AM-------------------------------
+
+Split count1
+FindAll no match
+File --> headers.txt <--
+FindAll no match
+Regex --> : <--
+Split count1
+FindAll no match
+-------------------------------4/14/15 9:54 AM-------------------------------
+
+File --> headers.txt <--
+Regex --> CL\S* <--
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+FindAll no match
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+-------------------------------4/14/15 9:55 AM-------------------------------
+
+Regex --> \((d+),(\d+)\) <--
+File --> headers.txt <--
+Find
+Find
+Groups count: 1
+**** No match ****
+Groups count: 1
+**** No match ****
+Find
+FindAll no match
+Split count1
+Regex --> \((\d+),(\d+)\) <--
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+-------------------------------4/14/15 9:57 AM-------------------------------
+
+File --> headers.txt <--
+Regex --> \((\d+),(\d+)\) <--
+Find
+Find
+Find
+Find
+-------------------------------4/14/15 10:02 AM-------------------------------
+
+File --> headers.txt <--
+Regex --> : <--
+FindAll match count: 59
+-------------------------------4/14/15 10:03 AM-------------------------------
+
+File --> headers.txt <--
+Regex --> CL12Contig1 <--
+FindAll match count: 1
+-------------------------------4/14/15 10:06 AM-------------------------------
+
+File --> headers.txt <--
+Regex --> : <--
+Split count89
+FindAll match count: 59
+Split count89
+Regex --> \((\d+),(\d+)\) <--
+FindAll match count: 33
+Split count63
+-------------------------------4/14/15 10:09 AM-------------------------------
+
+File --> headers.txt <--
+FindAll match count: 1
+Regex --> CL\S* <--
+FindAll match count: 29
+Split count59
+-------------------------------4/14/15 10:12 AM-------------------------------
+
+File --> headers.txt <--
+Regex --> CL\S* <--
+FindAll match count: 29
+Groups count: 1
+Entire match: 
+
+Split count59
+Groups count: 1
+Entire match: 
+
+-------------------------------4/14/15 10:13 AM-------------------------------
+
+File --> headers.txt <--
+-------------------------------4/14/15 10:14 AM-------------------------------
+
+File --> headers.txt <--
+-------------------------------4/14/15 10:20 AM-------------------------------
+
+-------------------------------4/14/15 10:20 AM-------------------------------
+
+File --> headers.txt <--
+-------------------------------4/14/15 10:21 AM-------------------------------
+
+File --> headers.txt <--
+Regex --> CL\S* <--
+Find
+-------------------------------4/14/15 10:22 AM-------------------------------
+
+File --> headers.txt <--
+Regex --> CL\S* <--
+Find
+Groups count: 1
+Entire match: CL4Contig12
+
+Find
+Groups count: 1
+Entire match: CL5Contig1
+
+Find
+Find
+Find
+Groups count: 1
+Entire match: CL12Contig1
+
+Groups count: 1
+Entire match: CL12Contig1
+
+Find
+Find
+Groups count: 1
+Entire match: CL18Contig1
+
+Find
+Find
+Groups count: 1
+Entire match: CL18Contig3
+
+Find
+Find
+Groups count: 1
+Entire match: CL22Contig3
+
+-------------------------------4/14/15 10:23 AM-------------------------------
+
+Regex --> \((\d+),(\d+)\) <--
+File --> headers.txt <--
+Find
+Groups count: 3
+Entire match: (221,228)
+1: 221
+2: 228
+
+Find
+Find
+Groups count: 3
+Entire match: (1690,1697)
+1: 1690
+2: 1697
+
+Find
+Groups count: 3
+Entire match: (3471,3478)
+1: 3471
+2: 3478
+
+-------------------------------4/14/15 10:26 AM-------------------------------
+
+Regex --> Contig3|([89]\d+),([5-9]) <--
+File --> headers.txt <--
+Find
+Groups count: 3
+Entire match: 950,9
+1: 950
+2: 9
+
+Find
+Find
+Groups count: 1
+Entire match: Contig3
+
+Find
+Groups count: 3
+Entire match: 956,9
+1: 956
+2: 9
+
+Find
+Groups count: 1
+Entire match: Contig3
+
+-------------------------------4/14/15 10:27 AM-------------------------------
+
+-------------------------------4/14/15 10:29 AM-------------------------------
+
+File --> headers.txt <--
+-------------------------------4/14/15 10:29 AM-------------------------------
+
+File --> headers.txt <--
+Find
+Regex --> Contig3|([89]\d+),([5-9]) <--
+Find
+Groups count: 3
+Entire match: 950,9
+1: 950
+2: 9
+
+Find
+Groups count: 1
+Entire match: Contig3
+
+Find
+Find
+Groups count: 3
+Entire match: 956,9
+1: 956
+2: 9
+
+-------------------------------4/14/15 10:31 AM-------------------------------
+
+File --> headers.txt <--
+Groups count: 1
+Entire match: 
+
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Regex --> CL <--
+Find
+Find
+Find
+Groups count: 1
+Entire match: CL
+
+Find
+Find
+Groups count: 1
+Entire match: CL
+
+FindAll match count: 24
+Find
+FindAll match count: 1
+Regex --> cl <--
+FindAll match count: 1
+-------------------------------4/14/15 10:31 AM-------------------------------
+
+File --> headers.txt <--
+Regex --> cl <--
+FindAll match count: 1
+-------------------------------4/14/15 10:33 AM-------------------------------
+
+-------------------------------4/14/15 10:34 AM-------------------------------
+
+File --> headers.txt <--
+Regex --> Cl <--
+Regex --> cl <--
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+Regex --> CL <--
+Find
+Find
+Find
+Find
+-------------------------------4/14/15 10:35 AM-------------------------------
+
+File --> headers.txt <--
+Regex --> cl <--
+Find
+Find
+Find
+Regex --> Flags: MLine Comments
+Regex --> Flags: MLine NoCase Comments
+Regex --> Flags: MLine NoCase Comments
+Regex --> Flags: MLine DotAll NoCase Comments
+Regex --> Flags: MLine DotAll NoCase 
+Regex --> Flags: MLine DotAll 
+Regex --> Flags: DotAll 
+Regex --> Flags: 
+Regex --> Flags: Comments
+Regex --> Flags: NoCase Comments
+Regex --> Flags: MLine NoCase Comments
+Regex --> Flags: MLine DotAll NoCase Comments
+Regex --> Flags: MLine DotAll NoCase 
+Regex --> Flags: MLine DotAll 
+Regex --> Flags: DotAll 
+Regex --> Flags: 
+Regex --> Flags: Comments
+Regex --> Flags: NoCase Comments
+Regex --> Flags: MLine NoCase Comments
+Regex --> Flags: MLine DotAll NoCase Comments
+Regex --> cl <--
+Find
+Find
+Find
+Find
+Find
+Find
+Find
+FindAll match count: 22
+Regex --> \#.*?CL <--
+Find
+Find
+Find
+Find
+FindAll match count: 1
+Find
+Regex --> Flags: MLine DotAll NoCase 
+Regex --> Flags: MLine DotAll 
+Regex --> Flags: DotAll 
+Regex --> Flags: 
+Find
+Find
+Find
+Regex --> Flags: Comments
+Regex --> Flags: NoCase Comments
+Regex --> Flags: MLine NoCase Comments
+Regex --> Flags: MLine DotAll NoCase Comments
+Find
+Regex --> Flags: MLine DotAll NoCase 
+Regex --> Flags: MLine DotAll 
+Regex --> Flags: DotAll 
+Regex --> Flags: 
+Regex --> Flags: Comments
+Regex --> Flags: NoCase Comments
+Regex --> Flags: MLine NoCase Comments
+Regex --> Flags: MLine DotAll NoCase Comments
+Regex --> Flags: MLine DotAll NoCase 
+Regex --> Flags: MLine DotAll 
+Regex --> Flags: DotAll 
+Regex --> Flags: 
+Regex --> Flags: Comments
+Regex --> Flags: NoCase Comments
+Regex --> Flags: MLine NoCase Comments
+Regex --> Flags: MLine DotAll NoCase Comments
+Regex --> Flags: MLine DotAll NoCase 
+Regex --> Flags: MLine DotAll 
+Regex --> Flags: DotAll 
+Regex --> Flags: 
+Regex --> Flags: Comments
+Regex --> Flags: NoCase Comments
+Regex --> Flags: MLine NoCase Comments
+Regex --> Flags: MLine DotAll NoCase Comments
+Regex --> Flags: MLine DotAll NoCase 
+Regex --> Flags: MLine DotAll 
+Regex --> Flags: DotAll 
+Regex --> Flags: 
+Regex --> Flags: Comments
+Regex --> Flags: NoCase Comments
+Regex --> Flags: MLine NoCase Comments
+Regex --> Flags: MLine DotAll NoCase Comments
+Regex --> Flags: MLine DotAll NoCase 
+Regex --> Flags: MLine DotAll 
+Regex --> Flags: DotAll 
+Regex --> Flags: 
+Find
+Find
+Find
+Regex --> Flags: Comments
+Regex --> Flags: NoCase Comments
+Regex --> Flags: MLine NoCase Comments
+Regex --> Flags: MLine DotAll NoCase Comments
+Find
+Find
+Find
+Find
+Find
+-------------------------------4/14/15 10:37 AM-------------------------------
+
+File --> headers.txt <--
+FindAll match count: 1
+Split count1
+Regex --> Flags: MLine Comments
+Regex --> Flags: MLine NoCase Comments
+Regex --> Flags: MLine NoCase Comments
+Regex --> Flags: MLine DotAll NoCase Comments
+FindAll match count: 1
+Regex --> test  <--
+FindAll match count: 1

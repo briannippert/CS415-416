@@ -1,0 +1,90 @@
+//+++++++++++++++++++++++++++ FractalEllipse +++++++++++++++++++++++++
+import java.awt.*;
+import java.awt.geom.*;
+/** 
+ * FractalEllipse.java:
+ * A shape that draws a self-similar pattern based on certain parameters
+ * We begin with a circle and then add smaller circles on its circumference.
+ *
+ * @author  rdb
+ * last edited: February 2015
+ */
+
+public class FractalEllipse extends Ellipse2D.Float 
+{
+    //---------------- class variables ------------------------------
+    static  int     maxDepth    = 1;
+    static  double  offset      = 0;
+    static  double  sizeRatio   = 0.5;
+    static  double  hwRatio     = 1;
+    static  int     width       = 200;
+    static  int     numChildren = 4;
+    
+    static  boolean fill        = true;
+    
+    //---------------- instance variables ------------------------------
+    
+    
+    //------------------------ constructors ----------------------------
+    /**
+     *   Constructor.
+     * @param depth int     fractal nesting depth
+     * @param p Point       center of ellipse
+     * @param w int         width
+     * @param h int         height
+     */
+    public FractalEllipse( int depth, Point p, int w, int h )
+    {
+        setFrame( p.x, p.y, w, h );
+        
+        //***************************************************************
+        //  Need to create the children unless depth has reached the 
+        //    max specified by the maxDepth static variable
+        //***************************************************************
+        
+        //////////////////////////////////////////////////////////////////
+        // Need to determine the size and location of all the children
+        //    of this object and then invoke their constructors.
+        //
+        // All calculation needs to be done in double; conversion to the
+        //    int (using Math.round() -- should only be performed at the
+        //    very end.
+        //////////////////////////////////////////////////////////////////
+    }
+    //--------------------- draw( Graphics2D ) -----------------------
+    /**
+     * Called by FractalGUI.paintComponent.
+     * @param context Graphics2D
+     */   
+    public void draw( Graphics2D context ) 
+    {
+        Color saveColor = context.getColor();
+        
+        Color myColor = Color.MAGENTA;
+        context.setColor( myColor );
+        
+        // draw myself
+        if ( fill )        
+            context.fill( this );
+        else
+            context.draw( this );
+        ////////////////////////////////////////////////////////////////
+        // Need to recurse to children draw methods -- only if the children
+        //   exist of course.
+        // Need to use a different color for each level of recursion
+        /////////////////////////////////////////////////////////////////
+        
+        
+        context.setColor( saveColor );
+    }
+    //==================== main ========================================
+    /**
+     * A convenience main to invoke app from DrJava.
+     * 
+     * @param args String[]  command line args -- not used.
+     */
+    public static void main( String[] args )
+    {
+        FractalApp.main( args );
+    }
+}

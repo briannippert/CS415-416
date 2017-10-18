@@ -1,0 +1,282 @@
+//++++++++++++++++++++++++ JRegularPolygon.java +++++++++++++++++++++
+import java.awt.geom.*;
+import java.awt.*;
+
+/**
+ * JRegularPolygon.java-- a wheels-like convenience class for generating
+ * regular polygons; and for using the AWT polygon object.
+ * 
+ * @author rdb 01/01/14 rdb: indent at 4
+ */
+
+public class JRegularPolygon extends JAreaShape
+{
+    // ---------------- class variables ---------------------------
+
+    // ---------------- instance variables ------------------------
+    protected Polygon _polygon;
+    protected Rectangle _bnds;
+
+    // polygon variables
+    private int _nSides;
+    private int _radius;
+    private int _rotation;
+    private int _ulX; // upperLeft corner of bounding box
+    private int _ulY; // of the base vertices
+    private double[] _x; // coords of poly in double at origin
+    private double[] _y;
+
+    // -------------------- constructors ---------------------------
+    /**
+     * Constructor for JRegularPolygon.
+     * 
+     * @param x
+     *            int
+     * @param y
+     *            int
+     * @param nSides
+     *            int
+     * @param radius
+     *            int
+     */
+    public JRegularPolygon ( int x, int y, int nSides, int radius )
+    {
+        setLocation( x, y );
+        _bnds = new Rectangle( 0, 0, 0, 0 ); // initialize to 0 size
+        _nSides = nSides;
+        _radius = radius;
+        _rotation = 0;
+        setColor( defaultColor );
+        makeVertices(); // make verts relative to origin at center
+        makePolygon( x, y ); // make java.awt.Polygon
+        super.setSize( 1000, 1000 );
+    }
+
+    // -------------------- makeVertices() ------------------------------
+    /**
+     * Generate double vertex arrays for the x,y "base" vertices for this
+     * RegularPolygon specification. The base vertices represent the shape the
+     * regular polygon with its center at (0,0).
+     * 
+     * Do all calculation in double based on regular polygon with center at
+     * 0,0. First vertex is always at alpha = 0, horizontal line from center
+     * parallel to x-axis of length radius; i.e., at ( radius, 0 ); rest are at
+     * equal angles around the origin.
+     * 
+     * These vertices are used to create the java.awt.Polygon object which has
+     * to be scaled, rotated, and translated before being converted to the int
+     * arrays needed for java.awt.Polygon.
+     */
+    private void makeVertices()
+    {
+        double minX = Double.MAX_VALUE;
+        double minY = Double.MAX_VALUE;
+
+        _x = new double[_nSides];
+        _y = new double[_nSides];
+        double alpha = ( _rotation / 180.0 ) * Math.PI;
+        double dAlpha = 2 * Math.PI / _nSides;
+
+        for ( int i = 0; i < _nSides; i++ )
+        {
+            _x[i] = Math.cos( alpha ) * _radius;
+            _y[i] = Math.sin( alpha ) * _radius;
+            if ( _x[i] < minX )
+                minX = _x[i];
+            if ( _y[i] < minY )
+                minY = _y[i];
+
+            alpha += dAlpha;
+        }
+        _ulX = (int) Math.round( minX );
+        _ulY = (int) Math.round( minY );
+    }
+
+    // -------------------- makePolygon( int, int ) --------------------------
+    /**
+     * Create a java.awt.Polygon obj for this RegularPolygon spec; so that the
+     * upper left corner of its bounding box is at x,y
+     * 
+     * The double coordinates in _x[] and _y[] need to be translated so that
+     * the upper left corner of the bounding box of the vertices is at the
+     * location specified by the parameters.
+     * 
+     * The upper left corner of the bounding box of the vertices is stored in
+     * the instance variables _ulX and _ulY.
+     * 
+     * Each vertex (_x[i], _y[i] ) must be translated by (locX - _ulX, locY -
+     * _ulY ) then converted to int and the result assigned to the positions in
+     * the int arrays x[i], y[i].
+     * 
+     * Since you've just made a new java.awt.Polygon, you also need to get its
+     * bounds and save that in the __bnds instance variable
+     * 
+     * @param locX
+     *            int
+     * @param locY
+     *            int
+     */
+    private void makePolygon( int locX, int locY )
+    {
+        int[] x = new int[_nSides];
+        int[] y = new int[_nSides];
+        int min;
+
+       
+        for ( int i = 0; i < _nSides; i++ )
+        {
+            x[i] = (int) ( _x[i] + (locX - _ulX ));
+            y[i] = (int) ( _y[i] + (locY - _ulY ));
+        
+        _polygon = new Polygon( x, y, x.length );
+
+        // //////////////////////////////////////////////////////////////
+        // Need to make the java.awt.Polygon object that represents
+        // this RegularPolygon. See the comments above for help
+        // //////////////////////////////////////////////////////////////
+        this.repaint();
+    }
+
+    // ----------------------- setRotation( int ) -------------------------
+    /**
+     * setRotation -- a wheels-like method.
+     * 
+     * @param aRotation
+     *            int
+     */
+    public void setRotation( int aRotation )
+    {
+        // /////////////////////////////////////////////////////////////
+        // This requires regenerating the base vertices and then modifying
+        // the vertices of the java.awt.Polygon or creating a new one.
+        // Be careful to "remember" the current location of the Polygon
+        // so you can know where to move the new specification of the
+        // Polygon. Since you need to do all this for setRadius also,
+        // it better be in a subroutine.
+        // //////////////////////////////////////////////////////////////
+    }
+
+    // ---------------------- setRadius( int ) ----------------------------
+    /**
+     * Set the radius of the regular polygon to r.
+     * 
+     * @param r
+     *            int
+     */
+    public void setRadius( int r )
+    {
+        // /////////////////////////////////////////////////////////////
+        // This requires regenerating the base vertices and then modifying
+        // the vertices of the java.awt.Polygon or creating a new one.
+        // Be careful to "remember" the current location of the Polygon
+        // so you can know where to move the new specification of the
+        // Polygon. Since you need to do all this for setRotation also,
+        // it better be in a subroutine.
+        // //////////////////////////////////////////////////////////////
+    }
+
+    // ---------------------- updatePolygon -------------------------------
+    /**
+     * update the polygon's vertices.
+     */
+    private void updatePolygon()
+    {
+        int x = 0;
+        int y = 0;
+
+        // save the location (upper left corner)
+        if ( _bnds != null )
+        {
+            x = (int) Math.round( _bnds.getX() );
+            y = (int) Math.round( _bnds.getY() );
+        }
+
+        // regenerate the base vertices
+        makeVertices();
+
+        // regenerate the polygon vertices
+        makePolygon( x, y );
+    }
+
+    // ++++++++++++++ wheels-like JShape convenience methods ++++++++++++++
+    // ----------------------- setSize( int, int ) ------------------------
+    /**
+     * setSize( int, int ) - a wheels method. This method will be implemented
+     * differently for JRegularPolygon because a regular polygon cannot be
+     * differentially scaled in x and y or else it would no longer be a regular
+     * polygon. Hence, you must force aWidth and aHeight to be the same.
+     * Arbitrarily, use the average of the 2 values as the size. You should
+     * print an error message if the setSize call specifies different values
+     * for width and height -- and then compute the averaged.
+     * 
+     * Then use the size to change the radius: new radius = 1/2 size. This
+     * isn't perfectly consistent with the definition of setSize for other
+     * children of AShape, where the shape should just fit in the box defined
+     * by the setSize width, height paramters. Turning the size into a radius
+     * means that the polygon will just fit in the circle defined by the
+     * radius. Computing the box would be more complicated since the minimum
+     * size depends on the orientation of the specific regular polygon.
+     * 
+     * @param aWidth
+     *            int
+     * @param aHeight
+     *            int
+     */
+    public void setSize( int aWidth, int aHeight )
+    {
+        // ////////////////////////////////////////////////////////
+        // complete the code as described in comments above
+        // ////////////////////////////////////////////////////////
+
+    }
+
+    // ----------------------- paintComponent( Graphics2D ) ---------------
+    /**
+     * paintComponent - calls draw and fill awt methods (rdb methods).
+     * 
+     * @param brush
+     *            java.awt.Graphics
+     */
+    public void paintComponent( java.awt.Graphics brush )
+    {
+        // ///////////////////////////////////////////////////////////////
+        // copy the paintComponent method of JRectangle to here
+        //
+        // All you need to change are the calls to fillRect and drawRect
+        // Replace them with calls to fillPolygon and drawPolygon
+        // Look these methods up under the java.awt.Graphics2D
+        // class documentation on the web.
+        // ///////////////////////////////////////////////////////////////
+        super.paintComponent( brush );
+        Graphics2D brush2 = (Graphics2D) brush;
+        int w = getWidth();
+        int h = getHeight();
+        int lw = getLineWidth();
+
+        // Graphics2D object has a "clipping" window that will ignore any
+        // attempt to draw outside it. Default window is the size of the
+        // component. Unfortunately, the border of an Ellipse is 1 pixel
+        // longer and 1 pixel wider than the interior AND the size of the
+        // JComponent is determined by the interior.
+        // So, we want to create a clipping window that is big enough to
+        // hold the boundary and the interior. Since the boundary can have
+        // an arbitrary linewidth, need to have a clip region that is
+        // "linewidth" bigger on ALL sides. Hence, the window origin is at
+        // -linewidth, -linewidth, and its width and height are
+        // increased by 2 * linewidth.
+        //
+        brush2.setClip( -lw, -lw, w + 2 * lw, h + 2 * lw );
+
+        // note that the location of the Ellipse is the location of the
+        // JComponent. All drawing is relative to this location. Hence, we
+        // draw ellipses at ( 0, 0 ): their location in their JComponent.
+
+        brush2.setColor( getFillColor() );
+        brush2.fillPolygon( _polygon );
+        brush2.setStroke( new BasicStroke( lw ) );
+        brush2.setColor( getFrameColor() );
+        brush2.drawPolygon( _polygon );
+        System.out.println( "Draw Polygon" );
+    }
+
+}

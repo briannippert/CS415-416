@@ -1,0 +1,40 @@
+import java.awt.*;
+import java.awt.geom.Ellipse2D;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class GUI extends JFrame
+{
+
+    JPanel _panel;
+    Ellipse2D _ellipse;
+    Rectangle _rectangle;
+    JButton b1;
+
+    public GUI ( int height, int width )
+    {
+        super.setTitle( "GUI" );
+        super.setSize( width, height );
+        super.setVisible( true );
+        b1 = new JButton();
+        _panel = new JPanel();
+        _ellipse = new Ellipse2D.Double();
+        _rectangle = new Rectangle();
+        _panel.add( b1 );
+        b1.setSize( 20, 20 );
+        b1.setLocation( height + 50, width + 50 );
+        _rectangle.setLocation( new Point( 150, 150 ) );
+        this.add( _panel );
+        _panel.setVisible( true );
+        _panel.setSize( width - 10, height - 10 );
+
+    }
+
+    public static void main( String[] args )
+    {
+        new GUI( 500, 500 );
+    }
+
+}

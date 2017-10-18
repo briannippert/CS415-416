@@ -1,0 +1,11 @@
+# a small binary tree
+node root l r ll lr rl rr 
+edge root l r
+edge l ll lr
+edge r rl rr
+
+#start root
+#end   rr
+
+path root rr
+#path root lr

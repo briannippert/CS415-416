@@ -1,0 +1,98 @@
+import wheelsunh.users.*;
+
+import java.awt.Color;
+
+/**
+ * creates a nucleotide.
+ * 
+ * @author Brian Local
+ *
+ */
+public class Nucleotide
+{
+    private TextBox t1;
+
+    /**
+     * Constructor for the Nucleotide class.
+     * 
+     * @param a
+     *            text to fill the textbox with
+     * @param x
+     *            x location
+     * @param y
+     *            y location
+     */
+    public Nucleotide(String a, int x, int y)
+    {
+        t1 = new TextBox();
+        t1.setSize( 20, 25 );
+        t1.setLocation( x, y );
+
+        t1.setText( a );
+        if ( a.equals( "A" ) )
+        {
+            t1.setColor( Color.RED );
+            t1.setFrameColor( Color.BLACK );
+        }
+        else if ( a.equals( "T" ) )
+        {
+            t1.setColor( Color.CYAN );
+            t1.setFrameColor( Color.BLACK );
+        }
+        else if ( a.equals( "C" ) )
+        {
+            t1.setColor( Color.YELLOW );
+            t1.setFrameColor( Color.BLACK );
+        }
+        else if ( a.equals( "G" ) )
+        {
+            t1.setColor( Color.GREEN );
+            t1.setFrameColor( Color.BLACK );
+        }
+        else
+        {
+            t1.setColor( Color.LIGHT_GRAY );
+            t1.setFrameColor( Color.BLACK );
+        }
+
+    }
+
+    /**
+     * sets the color for the textBox
+     * 
+     * @param c
+     *            Color
+     */
+    public void setColor( Color c )
+    {
+        t1.setColor( c );
+    }
+
+    /**
+     * sets the frame color for the nucleotide.
+     * 
+     * @param c
+     *            Color
+     */
+    public void setFrameColor( Color c )
+    {
+        t1.setFrameColor( c );
+    }
+
+    /**
+     * gets the XLocation of the nucleotide.
+     * 
+     * @return XLocation
+     */
+    public int getXLocation()
+    {
+        return t1.getXLocation();
+    }
+
+    public static void main( String[] args )
+    {
+        new Frame();
+        new Nucleotide( "A", 200, 200 );
+    }
+
+}

@@ -1,0 +1,429 @@
+import wheelsunh.users.*;
+
+import java.awt.Color;
+import java.awt.Point;
+import java.util.Random;
+
+/**
+ * 
+ * Thrower Class takes 3 dice and applys the rules of the game.
+ * 
+ * @author Brian
+ *
+ */
+public class Thrower
+{
+
+    private static Die d1;
+    private static Die d2;
+    private static Die d3;
+    private static Die d4;
+    private static Die d5;
+    private static Die d6;
+
+    private static int n1;
+    private static int n2;
+    private static int n3;
+    private static int n4;
+    private static int n5;
+    private static int n6;
+    private static TextBox t1;
+    private static TextBox t2;
+    private static TextBox t3;
+    private static int playerx;
+    private static int dealerx = 10;
+    private static int score;
+
+    private int dealerOutput;
+    private int playerOutput;
+
+    private TextBox t4;
+    private TextBox t5;
+    private DealerButton b1;
+    private PlayerButton b2;
+
+    private ResetButton r1;
+    private TextBox t6;
+    private static int dealerxFinal;
+    private static int playerxFinal;
+    private static int betting;
+
+    /**
+     * Constructor for the Thrower class.
+     */
+    public Thrower()
+    {
+        d1 = new Die();
+        d2 = new Die();
+        d3 = new Die();
+        d4 = new Die();
+        d5 = new Die();
+        d6 = new Die();
+
+        d2.setLocation( 110, 20 );
+        d3.setLocation( 200, 20 );
+
+        d4.setLocation( 20, 130 );
+        d5.setLocation( 110, 130 );
+        d6.setLocation( 200, 130 );
+
+        t1 = new TextBox( 300, 50 );
+        t2 = new TextBox( 300, 155 );
+        t3 = new TextBox( 300, 225 );
+        t3.setFrameColor( Color.WHITE );
+
+        t4 = new TextBox();
+        t4.setLocation( 60, 355 );
+        t4.setText( "Dealer" );
+        t4.setFrameColor( Color.white );
+        t4.setWidth( 50 );
+
+        t5 = new TextBox();
+        t5.setLocation( 60, 380 );
+        t5.setText( "Player" );
+        t5.setFrameColor( Color.white );
+        t5.setWidth( 50 );
+        b1 = new DealerButton();
+        b1.setLocation( 110, 360 );
+        b2 = new PlayerButton();
+        b2.setLocation( 110, 385 );
+        t6 = new TextBox();
+        t6.setLocation( 60, 410 );
+        t6.setText( "Reset" );
+        t6.setFrameColor( Color.WHITE );
+        t6.setWidth( 50 );
+        r1 = new ResetButton();
+        r1.setLocation( 110, 410 );
+
+    }
+
+    /**
+     * Rolls the dealers set of dice.
+     */
+    public static void dealerRoll()
+    {
+        d1.roll();
+        n1 = d1.dieNumber();
+        d2.roll();
+        n2 = d2.dieNumber();
+        d3.roll();
+        n3 = d3.dieNumber();
+
+        // System.out.println( n1 + n2 + n3 + n4 + n5 + n6 );
+
+        // PairPoint
+        if ( n1 == n2 || n2 == n3 || n1 == n3 )
+        {
+            // Ace Negitive
+            if ( n1 + n2 == 2 || n1 + n3 == 2 || n2 + n3 == 2 )
+            {
+                t1.setText( "Ace Negative dealer looses" );
+                dealerx = 0;
+                playerx = 11;
+                playerxFinal = 1;
+                dealerxFinal = 0;
+                Betting.money();
+
+                d1.setColor( Color.red );
+                d2.setColor( Color.red );
+                d3.setColor( Color.red );
+            }
+            d1.setColor( Color.orange );
+            d2.setColor( Color.orange );
+            d3.setColor( Color.orange );
+            if ( n1 == n2 )
+            {
+                t1.setText( "Pair-point dealer gets " + n3 + " points" );
+                dealerx = n3;
+                playerx = 10;
+
+            }
+            if ( n2 == n3 )
+            {
+                t1.setText( "Pair-point dealer gets " + n1 + " points" );
+                dealerx = n1;
+                playerx = 10;
+
+            }
+            if ( n1 == n3 )
+            {
+                t1.setText( "Pair-point dealer gets " + n2 + " points" );
+                dealerx = n2;
+                playerx = 10;
+
+            }
+
+        }
+        // The Dancing Dragon
+        if ( n1 + n2 + n3 == 6 )
+        {
+            d1.setColor( Color.red );
+            d2.setColor( Color.red );
+            d3.setColor( Color.red );
+            t1.setText( "Dancing Dragon Banker Looses" );
+            dealerx = 0;
+            playerx = 11;
+            playerxFinal = 1;
+            dealerxFinal = 0;
+            Betting.money();
+
+        }
+        // Strung Flowers
+        if ( ( n1 + n2 + n3 == 15 ) && ( n1 == 4 || n2 == 4 || n3 == 4 ) )
+        {
+            t1.setText( "strung flowers Dealer wins" );
+            dealerx = 70;
+            playerx = 11;
+            playerxFinal = 0;
+            dealerxFinal = 1;
+            Betting.money();
+
+            d1.setColor( Color.green );
+            d2.setColor( Color.green );
+            d3.setColor( Color.green );
+        }
+
+        // 3 of a kind
+        if ( n1 == n2 && n2 == n3 )
+        {
+            t1.setText( "3 of a kind Dealer wins" );
+            dealerx = 70;
+            playerx = 11;
+            playerxFinal = 0;
+            dealerxFinal = 1;
+            Betting.money();
+
+            d1.setColor( Color.green );
+            d2.setColor( Color.green );
+            d3.setColor( Color.green );
+
+        }
+        betting = 1;
+        Betting.setBet();
+    }
+
+    /**
+     * Roles the players set of dice.
+     */
+    public static void playerRoll()
+    {
+        d4.roll();
+        n4 = d4.dieNumber();
+        d5.roll();
+        n5 = d5.dieNumber();
+        d6.roll();
+        n6 = d6.dieNumber();
+
+        // System.out.println( n1 + n2 + n3 + n4 + n5 + n6 );
+
+        // PairPoint
+
+        if ( n4 == n5 || n5 == n6 || n4 == n6 )
+        {
+            // Ace Negitive
+            if ( n4 + n5 == 5 || n4 + n6 == 5 || n5 + n6 == 5 )
+            {
+                t2.setText( "Ace Negative player Wins" );
+                playerx = 7;
+                d4.setColor( Color.green );
+                d5.setColor( Color.green );
+                d6.setColor( Color.green );
+                playerxFinal = 1;
+                dealerxFinal = 0;
+                Betting.money();
+            }
+            d4.setColor( Color.orange );
+            d5.setColor( Color.orange );
+            d6.setColor( Color.orange );
+            if ( n4 == n5 )
+            {
+                t2.setText( "Pair-point player gets " + n6 + " points" );
+                playerx = n6;
+            }
+            if ( n5 == n6 )
+            {
+                t2.setText( "Pair-point player gets " + n4 + " points" );
+                playerx = n4;
+            }
+            if ( n4 == n6 )
+            {
+                t2.setText( "Pair-point player gets " + n5 + " points" );
+                playerx = n5;
+            }
+
+        }
+        // The Dancing Dragon
+        if ( n4 + n5 + n6 == 6 )
+        {
+            d4.setColor( Color.green );
+            d5.setColor( Color.green );
+            d6.setColor( Color.green );
+            t2.setText( "Dancing Dragon Player wins" );
+            playerx = 7;
+            playerxFinal = 1;
+            dealerxFinal = 0;
+            Betting.money();
+
+        }
+        // Strung Flowers
+        if ( n4 + n5 + n6 == 45 && n4 == 4 || n5 == 4 || n6 == 4 )
+        {
+            t2.setText( "strung flowers player looses" );
+            playerx = 0;
+            d4.setColor( Color.red );
+            d5.setColor( Color.red );
+            d6.setColor( Color.red );
+            playerxFinal = 0;
+            dealerxFinal = 1;
+            Betting.money();
+        }
+
+        // 3 of a kind
+        if ( n4 == n5 && n5 == n6 )
+        {
+            t2.setText( "3 of a kind player looses" );
+            playerx = 0;
+            d4.setColor( Color.red );
+            d5.setColor( Color.red );
+            d6.setColor( Color.red );
+            playerxFinal = 0;
+            dealerxFinal = 1;
+            Betting.money();
+
+        }
+    }
+
+    /**
+     * 
+     * Returns the dealer number.
+     * 
+     * @return dealerx
+     */
+    public static int dnumber()
+    {
+        return dealerx;
+    }
+
+    /**
+     * returns the player number.
+     * 
+     * @return playerx
+     * 
+     */
+    public static int pnumber()
+    {
+        return playerx;
+    }
+
+    /**
+     * resets the die to original size and number.
+     */
+    public static void reset()
+    {
+        d1.setColor( Color.WHITE );
+        d2.setColor( Color.WHITE );
+        d3.setColor( Color.WHITE );
+        d4.setColor( Color.WHITE );
+        d5.setColor( Color.WHITE );
+        d6.setColor( Color.WHITE );
+
+        t1.setText( "" );
+        t2.setText( "" );
+        t3.setText( "" );
+        d1.setDie( 6 );
+        d2.setDie( 6 );
+        d3.setDie( 6 );
+        d4.setDie( 6 );
+        d5.setDie( 6 );
+        d6.setDie( 6 );
+
+        dealerx = 10;
+        playerx = 0;
+        betting = 0;
+
+    }
+
+    /**
+     * Determines who is the winner during pair point cases.
+     */
+    public static void score()
+    {
+
+        if ( dealerx == playerx && playerx != 10 && playerx != 11 )
+        {
+            t3.setText( "Its a Draw!" );
+            playerxFinal = playerx;
+            dealerxFinal = dealerx;
+            Betting.money();
+            dealerx = 10;
+            playerx = 11;
+
+        }
+        if ( dealerx > playerx && playerx != 10 && playerx != 11 )
+        {
+            t3.setText( "Dealer Wins!" );
+            playerxFinal = playerx;
+            dealerxFinal = dealerx;
+            Betting.money();
+            dealerx = 10;
+            playerx = 11;
+
+        }
+        if ( playerx > dealerx && playerx != 10 && playerx != 11 )
+        {
+            t3.setText( "Player Wins!" );
+            playerxFinal = playerx;
+            dealerxFinal = dealerx;
+            Betting.money();
+            dealerx = 10;
+            playerx = 11;
+
+        }
+
+    }
+
+    /**
+     * gets the number of the players turn.
+     * 
+     * @return playerxFinal
+     */
+    public static int pwinner()
+    {
+        return playerxFinal;
+    }
+
+    /**
+     * gets the number of the dealers turn.
+     * 
+     * @return dealerxFinal
+     */
+    public static int dwinner()
+    {
+        return dealerxFinal;
+    }
+
+    /**
+     * gets the number of the betting.
+     * 
+     * @return betting
+     */
+    public static int betting()
+    {
+
+        return betting;
+    }
+
+    /**
+     * Main method just invokes the class constructor.
+     * 
+     * @param args
+     *            args.
+     */
+    public static void main( String[] args )
+    {
+
+        new Frame();
+        new Thrower();
+    }
+
+}

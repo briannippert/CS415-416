@@ -1,0 +1,171 @@
+import wheelsunh.users.*;
+
+import java.awt.Color;
+import java.awt.Point;
+import java.util.Random;
+import java.util.Vector;
+
+/**
+ * slingshot class makes a slingshot that shoots a projectile.
+ * 
+ * @author Brian Local
+ *
+ */
+public class Slingshot extends ShapeGroup
+{
+    private Point p2;
+    private Point p3;
+    private Point lastMousePosition;
+    private Point currentPosition;
+    private Ellipse e1;
+    private Projectile p1;
+    private Ellipse e2;
+    private static int diffxt;
+    private static int diffyt;
+    private Point startPosition;
+    private Line l1;
+    private static int x;
+    private static int y;
+
+    /**
+     * constructor for the slingshot class.
+     */
+    public Slingshot()
+    {
+        e1 = new Ellipse();
+
+        e1.setSize( 90, 90 );
+        e1.setColor( Color.WHITE );
+        e1.setFrameColor( Color.BLACK );
+        e1.setLocation( 50, 250 );
+
+        e2 = new Ellipse();
+        e2.setColor( Color.BLACK );
+        e2.setSize( 20, 20 );
+        e2.setLocation( 87, 287 );
+        add( e2 );
+
+    }
+
+    /**
+     * allows the mouse to be pressed.
+     * 
+     * @param e e
+     */
+    public void mousePressed( java.awt.event.MouseEvent e )
+    {
+        lastMousePosition = e.getPoint();
+        startPosition = e.getPoint();
+        if ( p1 != null )
+            p1.emptyVector();
+    }
+
+    /**
+     * allows the mouse to be dragged.
+     * 
+     * @param e e
+     *           
+     */
+    public void mouseDragged( java.awt.event.MouseEvent e )
+    {
+
+        currentPosition = e.getPoint();
+
+        int diffx = currentPosition.x - lastMousePosition.x;
+        int diffy = currentPosition.y - lastMousePosition.y;
+        setLocation( getLocation().x + diffx, getLocation().y + diffy );
+        if ( l1 == null )
+            l1 = new Line( startPosition, currentPosition );
+        else
+            l1.setPoints( startPosition, currentPosition );
+
+        lastMousePosition = currentPosition;
+
+    }
+
+    /**
+     * allows the mouse to be released.
+     * 
+     * @param e e
+     */
+    public void mouseReleased( java.awt.event.MouseEvent e )
+    {
+        p1 = new Projectile();
+        p1.setLocation( 87, 287 );
+        diffxt = ( currentPosition.x - startPosition.x );
+        diffyt = ( currentPosition.y - startPosition.y );
+        p1.timer.start();
+        p1.move();
+        e2.setLocation( 87, 287 );
+        l1.setPoints( 87, 287, 87, 287 );
+
+    }
+
+    /**
+     * gets the x location for the projectiles movement.
+     * 
+     * @return diffxt difx
+     */
+    public static int getX()
+    {
+        return diffxt;
+    }
+
+    /**
+     * returns the location for the projectiles movement.
+     * 
+     * @return diffyt diffy
+     */
+    public static int getY()
+    {
+        return diffyt;
+    }
+
+    /**
+     * gets the xlocation of the object.
+     * @return p1.getXlocation
+     */
+    public int getXLocation()
+    {
+        if ( p1 != null )
+            return p1.getXLocation();
+        else
+            return 1;
+    }
+
+    /**
+     * gets the ylocation of the object.
+     * @return p1.getxLocation
+     */
+    public int getYLocation()
+    {
+        if ( p1 != null )
+            return p1.getYLocation();
+        else
+            return 1;
+    }
+
+    /**
+     * gets the height of the object.
+     * @return p1.getXlocation
+     */
+    public int getHeight()
+    {
+        if ( p1 != null )
+            return p1.getHeight();
+        else
+            return 1;
+    }
+
+    /**
+     * main method for the slingshot class.
+     * 
+     * @param args args
+     */
+    public static void main( String[] args )
+    {
+
+        new Frame();
+        new Slingshot();
+    }
+}

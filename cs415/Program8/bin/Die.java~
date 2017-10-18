@@ -1,0 +1,331 @@
+import wheelsunh.users.*;
+import java.awt.Color;
+import java.awt.Point;
+import java.util.Random;
+
+/**
+ * Draws a die and allows it to be rolled.
+ * 
+ * @author Brian 10/22/14
+ * 
+ *
+ */
+public class Die extends ShapeGroup
+{
+    private RoundedRectangle r1;
+    private Ellipse e1;
+    private Ellipse e2;
+    private Ellipse e3;
+    private Ellipse e4;
+    private Ellipse e5;
+    private Ellipse e6;
+    private Ellipse e7;
+    private int rand;
+    private int i;
+
+    /**
+     * Constructor for the Die Class.
+     */
+    public Die()
+    {
+        r1 = new RoundedRectangle();
+        r1.setColor( Color.WHITE );
+        r1.setFrameColor( Color.BLACK );
+        r1.setSize( 80, 80 );
+        r1.setLocation( 20, 20 );
+        // Ellipse 1
+        e1 = new Ellipse();
+        e1.setLocation( 50, 50 );
+        e1.setColor( Color.BLACK );
+        e1.setSize( 20, 20 );
+        e1.hide();
+        // Ellipse 2
+        e2 = new Ellipse();
+        e2.setLocation( 25, 25 );
+        e2.setColor( Color.BLACK );
+        e2.setSize( 20, 20 );
+        // Ellipse 3
+        e3 = new Ellipse();
+        e3.setLocation( 75, 75 );
+        e3.setColor( Color.BLACK );
+        e3.setSize( 20, 20 );
+        // Ellipse 4
+        e4 = new Ellipse();
+        e4.setLocation( 25, 75 );
+        e4.setColor( Color.BLACK );
+        e4.setSize( 20, 20 );
+        // Ellipse 5
+        e5 = new Ellipse();
+        e5.setLocation( 75, 25 );
+        e5.setColor( Color.BLACK );
+        e5.setSize( 20, 20 );
+        // Ellipse 6
+        e6 = new Ellipse();
+        e6.setLocation( 25, 50 );
+        e6.setColor( Color.BLACK );
+        e6.setSize( 20, 20 );
+        // Ellipse 7
+        e7 = new Ellipse();
+        e7.setLocation( 75, 50 );
+        e7.setColor( Color.BLACK );
+        e7.setSize( 20, 20 );
+
+        add( r1 );
+        add( e1 );
+        add( e2 );
+        add( e3 );
+        add( e4 );
+        add( e5 );
+        add( e6 );
+        add( e7 );
+
+    }
+
+    /**
+     * sets the location of the die.
+     * 
+     * @param x
+     * @param y
+     */
+    public void SetLocation( int x, int y )
+    {
+
+        super.setLocation( x, y );
+
+    }
+
+    /**
+     * Allows the die to be rolled.
+     * 
+     * @param x int
+     */
+    public void roll()
+    {
+        e1.hide();
+        e2.hide();
+        e3.hide();
+        e4.hide();
+        e5.hide();
+        e6.hide();
+        e7.hide();
+
+        Random gen1 = new Random();
+        i = gen1.nextInt( 6 ) + 1;
+        // System.out.println( i );
+        if ( i == 1 )
+        {
+            e1.hide();
+            e2.hide();
+            e3.hide();
+            e4.hide();
+            e5.hide();
+            e6.hide();
+            e7.hide();
+            e1.show();
+        }
+        else if ( i == 2 )
+        {
+            e1.hide();
+            e2.hide();
+            e3.hide();
+            e4.hide();
+            e5.hide();
+            e6.hide();
+            e7.hide();
+            e2.show();
+            e3.show();
+        }
+        else if ( i == 3 )
+        {
+            e1.hide();
+            e2.hide();
+            e3.hide();
+            e4.hide();
+            e5.hide();
+            e6.hide();
+            e7.hide();
+            e1.show();
+            e2.show();
+            e3.show();
+        }
+        else if ( i == 4 )
+        {
+            e1.hide();
+            e2.hide();
+            e3.hide();
+            e4.hide();
+            e5.hide();
+            e6.hide();
+            e7.hide();
+            e2.show();
+            e3.show();
+            e4.show();
+            e5.show();
+
+        }
+        else if ( i == 5 )
+        {
+
+            e1.hide();
+            e2.hide();
+            e3.hide();
+            e4.hide();
+            e5.hide();
+            e6.hide();
+            e7.hide();
+            e2.show();
+            e3.show();
+            e4.show();
+            e5.show();
+            e1.show();
+        }
+        else if ( i == 6 )
+        {
+
+            e1.hide();
+            e2.hide();
+            e3.hide();
+            e4.hide();
+            e5.hide();
+            e6.hide();
+            e7.hide();
+            e2.show();
+            e3.show();
+            e4.show();
+            e5.show();
+            e6.show();
+            e7.show();
+        }
+
+    }
+
+    /**
+     * sets the face of the die.
+     * 
+     * @param x int 
+     */
+    public void setDie( int x )
+    {
+        i = x;
+        if ( i == 1 )
+        {
+            e1.hide();
+            e2.hide();
+            e3.hide();
+            e4.hide();
+            e5.hide();
+            e6.hide();
+            e7.hide();
+            e1.show();
+        }
+        else if ( i == 2 )
+        {
+            e1.hide();
+            e2.hide();
+            e3.hide();
+            e4.hide();
+            e5.hide();
+            e6.hide();
+            e7.hide();
+            e2.show();
+            e3.show();
+        }
+        else if ( i == 3 )
+        {
+            e1.hide();
+            e2.hide();
+            e3.hide();
+            e4.hide();
+            e5.hide();
+            e6.hide();
+            e7.hide();
+            e1.show();
+            e2.show();
+            e3.show();
+        }
+        else if ( i == 4 )
+        {
+            e1.hide();
+            e2.hide();
+            e3.hide();
+            e4.hide();
+            e5.hide();
+            e6.hide();
+            e7.hide();
+            e2.show();
+            e3.show();
+            e4.show();
+            e5.show();
+
+        }
+        else if ( i == 5 )
+        {
+
+            e1.hide();
+            e2.hide();
+            e3.hide();
+            e4.hide();
+            e5.hide();
+            e6.hide();
+            e7.hide();
+            e2.show();
+            e3.show();
+            e4.show();
+            e5.show();
+            e1.show();
+        }
+        else if ( i == 6 )
+        {
+
+            e1.hide();
+            e2.hide();
+            e3.hide();
+            e4.hide();
+            e5.hide();
+            e6.hide();
+            e7.hide();
+            e2.show();
+            e3.show();
+            e4.show();
+            e5.show();
+            e6.show();
+            e7.show();
+        }
+
+    }
+
+    /**
+     * returns the number of the roll.
+     * 
+     * 
+     */
+    public int dieNumber()
+    {
+        return i;
+
+    }
+
+    /**
+     * sets color of the die
+     * 
+     * @param c
+     *            
+     */
+    public void setColor( Color c )
+    {
+        r1.setColor( c );
+        r1.setFrameColor( Color.black );
+    }
+
+    /**
+     * Main method just invokes the class constructor.
+     * 
+     * @param args
+     */
+    public static void main( String[] args )
+    {
+        new Frame();
+        Die d1 = new Die();
+
+    }
+}
