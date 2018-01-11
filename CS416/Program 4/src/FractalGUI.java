@@ -147,12 +147,12 @@ public class FractalGUI extends JPanel
      */
     private void buildButtons( Container buttonPanel )
     {      
-        LabeledSpinner depthSpinner = new LabeledSpinner( 
+    	LabeledSlider depthSpinner = new LabeledSlider( 
                                          "Recursion depth", 0, maxMaxDepth, 1 );
         depthSpinner.addChangeListener( new DepthListener() );
         buttonPanel.add( depthSpinner );
         
-        LabeledSpinner countSpinner = new LabeledSpinner( 
+        LabeledSlider countSpinner = new LabeledSlider( 
                                               "Child Count", 1, 8, 4 );
         countSpinner.addChangeListener( new NumChildListener() );
         buttonPanel.add( countSpinner );
